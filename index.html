@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Planner for the 2027 YSA Türkiye hiking-camping conference: Bursa vs Sakarya, trail maps, stays, gear and schedule.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Kamp 2027 Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a trail-map field guide. Paper ground with faint contours, condensed signage type,
+   trail-blaze red used only for routes and the one thing to act on. */
+:root{
+  --paper:#eef1ec; --paper-2:#e2e8e0; --card:#f9fbf7; --ink:#16201c; --ink-2:#4b5a53; --ink-3:#74827b;
+  --rule:#c8d1c8; --forest:#2d6a4f; --amber:#a86a12; --blaze:#c2412d; --lake:#4f86a8; --lake-fill:#cadeea;
+  --contour:#b7a27f; --land:#e6ebe2; --A:#6b4fa6; --B:#16797f; --shadow:rgba(22,32,28,.10);
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#101613; --paper-2:#17201b; --card:#1b2420; --ink:#e3ebe5; --ink-2:#a8b6ae; --ink-3:#7e8c85;
+  --rule:#2d3833; --forest:#6dbd92; --amber:#e3ab4c; --blaze:#ef7b63; --lake:#7cb0cf; --lake-fill:#1b3341;
+  --contour:#5f5240; --land:#18211c; --A:#a891e3; --B:#4fc1c5; --shadow:rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#101613; --paper-2:#17201b; --card:#1b2420; --ink:#e3ebe5; --ink-2:#a8b6ae; --ink-3:#7e8c85;
+  --rule:#2d3833; --forest:#6dbd92; --amber:#e3ab4c; --blaze:#ef7b63; --lake:#7cb0cf; --lake-fill:#1b3341;
+  --contour:#5f5240; --land:#18211c; --A:#a891e3; --B:#4fc1c5; --shadow:rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;line-height:1.02;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4.4vw,46px);text-transform:uppercase}
+h3{font-size:22px;font-weight:600}
+p{margin:0}
+a{color:var(--B)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.lead{color:var(--ink-2);max-width:68ch;font-size:16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blaze);outline-offset:2px}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+nav.top .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+nav.top a{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--ink-2);text-decoration:none;padding:4px 10px;border-radius:4px;white-space:nowrap}
+nav.top a:hover{background:var(--paper-2);color:var(--ink)}
+
+section{padding-block:56px;border-top:1px solid var(--rule)}
+.sec-head{display:grid;gap:10px;margin-bottom:26px}
+
+/* hero */
+.hero{position:relative;padding-block:44px 34px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:end}
+.hero h1{font-size:clamp(64px,12vw,148px);text-transform:uppercase;line-height:.86;letter-spacing:-.005em}
+.hero h1 .yr{color:var(--blaze)}
+.hero .sub{font-family:var(--f-display);font-size:clamp(22px,2.6vw,30px);font-weight:500;margin-top:14px;color:var(--ink-2)}
+.trail-sign{display:grid;gap:8px}
+.sign{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;
+  box-shadow:0 1px 0 var(--shadow)}
+.sign .k{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);width:104px;flex:none}
+.sign .v{font-weight:600;min-width:0}
+.sign .v small{display:block;font-weight:400;color:var(--ink-2);font-size:13px}
+.blaze{display:inline-block;width:18px;height:10px;background:linear-gradient(var(--card) 0 33%,var(--blaze) 33% 66%,var(--card) 66%);
+  border:1px solid var(--rule);flex:none}
+#heroTrail{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.9}
+.meta-line{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 18px}
+
+/* group dots */
+.group-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:none;padding:6px 12px;cursor:pointer;font-weight:600;font-size:14px;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.dots{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;max-width:420px;margin-top:16px}
+.dot{aspect-ratio:1;border-radius:50%;transition:transform .4s,background .4s,opacity .4s}
+.dot.c{background:var(--amber)} .dot.l{background:var(--ink-2)} .dot.s{background:var(--A)} .dot.b{background:var(--B)}
+.dot.off{opacity:.12;transform:scale(.6)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:13px;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--rule);border-radius:8px}
+.tbl tr:last-child td{border-bottom:0}
+
+/* travel map */
+.travel{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:start}
+.mapbox{background:var(--card);border:1px solid var(--rule);border-radius:10px;overflow:hidden;position:relative}
+.mapbox svg{display:block;width:100%;height:auto}
+.prov{fill:var(--land);stroke:var(--rule);stroke-width:.8}
+.prov.hlA{fill:color-mix(in srgb,var(--A) 22%,var(--land))}
+.prov.hlB{fill:color-mix(in srgb,var(--B) 22%,var(--land))}
+.sea{fill:var(--lake-fill)}
+.tline{fill:none;stroke-width:2.2;stroke-linecap:round;transition:opacity .3s}
+.city circle{fill:var(--ink)}
+.city text{font-size:21px!important}
+.city text,.maplabel{font-family:var(--f-body);font-size:15px;fill:var(--ink);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.tlabel{font-family:var(--f-mono);font-size:18px;paint-order:stroke;stroke:var(--card);stroke-width:4px;font-weight:500}
+.closer{font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--rule);background:var(--card);white-space:nowrap}
+.chip.A{color:var(--A);border-color:color-mix(in srgb,var(--A) 45%,var(--rule))}
+.chip.B{color:var(--B);border-color:color-mix(in srgb,var(--B) 45%,var(--rule))}
+.chip.est{border-style:dashed;color:var(--ink-2)}
+.chip.rec{color:var(--forest);border-color:color-mix(in srgb,var(--forest) 45%,var(--rule))}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.opt{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:22px;display:grid;gap:16px;align-content:start;border-top:5px solid var(--c)}
+.opt.A{--c:var(--A)} .opt.B{--c:var(--B)}
+.opt h3{font-size:30px;text-transform:uppercase}
+.opt h3 span{color:var(--c)}
+.pc{display:grid;gap:8px}
+.pc h4{margin:0;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+.pc ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.pc li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;font-size:14px}
+.pc li::before{content:"+";font-family:var(--f-mono);font-weight:700;color:var(--forest)}
+.pc.con li::before{content:"–";color:var(--blaze)}
+.pc li b{font-weight:600}
+.scorebar{display:grid;gap:8px;margin-top:20px}
+.score{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;font-size:14px}
+.score .side{height:22px;border-radius:3px;display:flex;align-items:center;padding:0 8px;font-size:12px;font-weight:600;color:var(--paper);white-space:nowrap;overflow:hidden}
+.score .sa{background:var(--A);justify-self:end}
+.score .sb{background:var(--B)}
+.score .lbl{color:var(--ink-2)}
+
+/* trail map */
+.trailtabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tab{border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:8px 14px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.tab b{font-family:var(--f-display);font-size:19px;text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+.tab small{font-size:12px;color:var(--ink-3)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab[aria-selected="true"] small{color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.trail-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;align-items:start}
+.tmap{position:relative}
+.tmap svg{touch-action:pan-y}
+.mapctl{position:absolute;right:10px;top:10px;display:flex;gap:6px}
+.mapctl button{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:4px 10px;font-size:13px;cursor:pointer}
+.land{fill:var(--land)}
+.band{fill:var(--contour);stroke:none}
+.wall{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;opacity:.75}
+.park{fill:color-mix(in srgb,var(--forest) 22%,transparent);stroke:var(--forest);stroke-width:1;stroke-dasharray:3 3}
+.contour,.wall,.park,.lake,.cable,.route,.route-case,.hit{vector-effect:non-scaling-stroke}
+.contour{fill:none;stroke:var(--contour);stroke-width:.8;opacity:.9}
+.contour.idx{stroke-width:1.6}
+.lake{fill:var(--lake-fill);stroke:var(--lake);stroke-width:1.2}
+.lakename{font-family:var(--f-display);font-style:italic;font-size:20px;letter-spacing:.2em;fill:var(--lake);text-transform:uppercase}
+.cable{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:2 5}
+.route-case{fill:none;stroke:var(--card);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.route{fill:none;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;cursor:pointer;transition:opacity .3s,stroke-width .2s}
+.route.est{stroke-dasharray:1 0}
+.route.easy{stroke:var(--forest)} .route.mod{stroke:var(--amber)} .route.hard{stroke:var(--blaze)}
+.dim .route:not(.sel),.dim .route-case:not(.sel){opacity:.22}
+.route.sel{stroke-width:6}
+.hit{fill:none;stroke:transparent;stroke-width:22;cursor:pointer}
+.pt circle{fill:var(--card);stroke:var(--ink);stroke-width:1.6}
+.pt.peak path{fill:var(--ink)}
+.pt text{font-size:13px}
+.pt .elev{font-family:var(--f-mono);font-size:11px;fill:var(--ink-2)}
+.stay rect{stroke:var(--card);stroke-width:2}
+.stay text.lt{font-family:var(--f-display);font-weight:700;font-size:15px;fill:var(--paper);stroke:none}
+.stay{cursor:pointer}
+.stay.A rect{fill:var(--A)} .stay.B rect{fill:var(--B)}
+.offmap{font-family:var(--f-body);font-size:13px;fill:var(--ink-2)}
+.scalebar line{stroke:var(--ink);stroke-width:2}
+.scalebar text{font-family:var(--f-mono);font-size:12px;fill:var(--ink)}
+.panel{display:grid;gap:12px}
+.acc{fill:none;stroke-width:2.5;stroke-dasharray:7 5;opacity:.45;vector-effect:non-scaling-stroke;transition:opacity .3s}
+.acc.on{opacity:1;stroke-width:3.5}
+.accpill{fill:var(--card);stroke-width:1.2}
+.accpill-t{font-family:var(--f-mono);font-size:11.5px;fill:var(--ink);font-weight:500}
+.matrix{display:grid;gap:18px;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);margin-top:14px}
+.mx{overflow-x:auto}
+.mx table{border-collapse:separate;border-spacing:4px;width:100%}
+.mx th{border:0;padding:4px 6px;font-size:10.5px}
+.mx td{border:0;border-radius:6px;padding:8px 10px;text-align:center;min-width:86px}
+.mx td.rowh{text-align:left;background:none;font-weight:600;font-size:13.5px;min-width:130px}
+.mx td .m{font-family:var(--f-display);font-size:22px;font-weight:600;line-height:1}
+.mx td .k{font-family:var(--f-mono);font-size:11px;color:var(--ink-2)}
+@media (max-width:900px){.matrix{grid-template-columns:minmax(0,1fr)}}
+.access{display:grid;gap:8px;border-top:1px solid var(--rule);padding-top:10px}
+.arow{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px}
+.arow.at b{color:var(--forest)}
+.letter.sm{width:22px;height:22px;font-size:13px;border-radius:4px}
+.prof{width:100%;height:auto;display:block}
+.prof text{font-family:var(--f-mono);font-size:10px;fill:var(--ink-3)}
+.stat .v small{font-size:15px;color:var(--ink-3)}
+.satbtn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:6px 10px;justify-self:start}
+.satbtn:hover{border-color:var(--ink)}
+.talist{display:grid;gap:4px}
+.ta{font-size:13.5px;color:var(--ink);text-decoration:none}
+.ta .mono{color:var(--amber);font-weight:500}
+.tastar{font-family:var(--f-mono);font-size:11px;fill:var(--amber)}
+.maplabel.sm{font-size:11px;fill:var(--ink-2)}
+.offlink{cursor:pointer}
+.rlist{display:grid;gap:6px}
+.ritem{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;
+  background:var(--card);border:1px solid var(--rule);border-radius:7px;padding:9px 12px;cursor:pointer}
+.ritem .sw{width:14px;height:4px;border-radius:2px}
+.ritem .nm{font-weight:600;font-size:14px;line-height:1.25}
+.ritem .km{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.ritem[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--ink)}
+.detail{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px;display:grid;gap:12px;min-height:200px}
+.detail h3{font-size:26px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.stat{background:var(--card);padding:8px 10px}
+.stat .v{font-family:var(--f-display);font-size:26px;font-weight:600;line-height:1}
+.stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 10px;font-size:13.5px}
+.kv dt{color:var(--ink-3)} .kv dd{margin:0}
+.detail ul{margin:0;padding-left:18px;font-size:13.5px;display:grid;gap:4px;color:var(--ink-2)}
+.diff{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;color:var(--paper);font-weight:500}
+.diff.easy{background:var(--forest)} .diff.mod{background:var(--amber)} .diff.hard{background:var(--blaze)}
+.note{font-size:12.5px;color:var(--ink-3)}
+.maplegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-2);margin-top:10px}
+.maplegend span{display:inline-flex;align-items:center;gap:6px}
+.maplegend i{display:inline-block;width:18px;height:4px;border-radius:2px}
+.maplegend i.sq{width:11px;height:11px;border-radius:2px}
+
+/* stays */
+.filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.stays{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stay-card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px;display:grid;gap:12px;align-content:start;position:relative}
+.stay-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.stay-card h3{font-size:23px}
+.stay-card .where{font-size:13px;color:var(--ink-2)}
+.feat{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;padding:2px 8px;border-radius:4px;background:var(--paper-2);color:var(--ink-2)}
+.tag.yes{background:color-mix(in srgb,var(--forest) 16%,var(--card));color:var(--forest);font-weight:600}
+.tag.no{background:color-mix(in srgb,var(--blaze) 12%,var(--card));color:var(--blaze)}
+.stay-card dl{margin:0}
+.contact{font-family:var(--f-mono);font-size:12.5px;user-select:all;color:var(--ink)}
+.letter{width:30px;height:30px;border-radius:5px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;color:var(--paper);flex:none;font-size:17px}
+.letter.A{background:var(--A)} .letter.B{background:var(--B)}
+.qbox{margin-top:18px;background:var(--card);border:1px dashed var(--rule);border-radius:10px;padding:18px;display:grid;gap:10px}
+.qbox ol{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:6px;padding:7px 14px;cursor:pointer;font-weight:600;font-size:14px;justify-self:start}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.toast{font-size:13px;color:var(--forest);min-height:1.2em}
+
+/* gear */
+.gear-ctl{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-bottom:16px}
+.gear-ctl label{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-right:8px}
+.gear-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.gear-cols h3{font-size:20px;margin-bottom:8px}
+td.q{font-family:var(--f-display);font-size:22px;font-weight:600;text-align:right;width:56px;transition:color .3s}
+td.q.flash{color:var(--blaze)}
+.cat{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+
+/* schedule */
+.daybars{display:grid;gap:10px;margin-bottom:22px}
+.daybar{display:grid;grid-template-columns:52px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px}
+.daybar .d{font-family:var(--f-display);font-weight:700;font-size:19px;text-transform:uppercase}
+.bar{display:flex;height:20px;border-radius:4px;overflow:hidden;background:var(--paper-2)}
+.bar span{height:100%;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.daybar .ft{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);text-align:right}
+.ty-spirit{background:var(--A)} .ty-out{background:var(--forest)} .ty-meal{background:var(--contour)} .ty-free{background:var(--blaze)} .ty-log{background:var(--ink-3)}
+.daytabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tl{display:grid;gap:0;background:var(--card);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.tl-row{display:grid;grid-template-columns:120px 10px minmax(0,1fr) minmax(0,1fr);gap:14px;padding:10px 16px;border-bottom:1px solid var(--rule);align-items:baseline;
+  animation:rise .45s both;animation-delay:calc(var(--i)*35ms)}
+.tl-row:last-child{border-bottom:0}
+.tl-row .t{font-family:var(--f-mono);font-size:13px;color:var(--ink-2)}
+.tl-row .sw{width:10px;height:10px;border-radius:2px;align-self:center}
+.tl-row .tr{color:var(--ink-3);font-size:13.5px}
+.tl-row.free{background:color-mix(in srgb,var(--blaze) 7%,var(--card))}
+@keyframes rise{from{transform:translateY(6px);opacity:.3}to{transform:none;opacity:1}}
+
+/* themes & dates */
+.themes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.theme{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px;display:grid;gap:8px;cursor:pointer;text-align:left;align-content:start;transition:transform .2s,border-color .2s}
+.theme:hover{transform:translateY(-2px)}
+.theme[aria-pressed="true"]{border-color:var(--blaze);box-shadow:0 0 0 1px var(--blaze)}
+.theme b{font-family:var(--f-display);font-size:23px;font-weight:600;line-height:1.05;text-transform:uppercase}
+.theme .ref{font-family:var(--f-mono);font-size:12px;color:var(--blaze)}
+.theme span.why{font-size:13px;color:var(--ink-2)}
+.cal{display:grid;gap:18px;margin-top:22px}
+.month h4{margin:0 0 6px;font-family:var(--f-display);font-size:20px;text-transform:uppercase;font-weight:600}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;max-width:520px}
+.days .h{font-family:var(--f-mono);font-size:10px;color:var(--ink-3);text-align:center}
+.day{aspect-ratio:1.25;border-radius:4px;background:var(--card);border:1px solid var(--rule);font-family:var(--f-mono);font-size:12px;display:grid;place-items:center;position:relative}
+.day.avoid{background:color-mix(in srgb,var(--blaze) 16%,var(--card));color:var(--blaze);border-color:transparent}
+.day.cand{background:color-mix(in srgb,var(--forest) 18%,var(--card));color:var(--forest);font-weight:600;border-color:transparent}
+.day.cand.pick{background:var(--forest);color:var(--paper)}
+.day.empty{background:none;border:0}
+.cal-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.windows{display:grid;gap:8px}
+.win{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left}
+.win[aria-pressed="true"]{border-color:var(--forest);box-shadow:inset 3px 0 0 var(--forest)}
+.win b{font-weight:600}
+.win small{display:block;color:var(--ink-2);font-size:12.5px}
+.avoid-list{display:grid;gap:6px;font-size:13.5px}
+.avoid-list div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px}
+.avoid-list .d{font-family:var(--f-mono);font-size:12px;color:var(--blaze)}
+
+footer{padding-block:40px 60px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink-2);display:grid;gap:10px}
+footer ul{margin:0;padding-left:18px;display:grid;gap:3px}
+
+@media (max-width:900px){
+  .hero-grid,.group-grid,.travel,.cmp,.trail-layout,.gear-cols,.cal-grid{grid-template-columns:minmax(0,1fr)}
+  .stays{grid-template-columns:minmax(0,1fr)}
+  .themes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .score{grid-template-columns:110px minmax(0,1fr) minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .tl-row{grid-template-columns:86px 10px minmax(0,1fr)}
+  .tl-row .tr{grid-column:3}
+  .themes{grid-template-columns:minmax(0,1fr)}
+  .sign .k{width:84px}
+  section{padding-block:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header class="hero" id="top">
+  <svg id="heroTrail" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">YSA Türkiye · Hiking–Camping Conference · Committee planner</div>
+      <h1>Kamp<br><span class="yr">2027</span></h1>
+      <p class="sub">Bursa or Sakarya? Four days of trails, lessons and free time for 25–30 people.</p>
+      <div class="meta-line">
+        <span class="chip A">Option A · Bursa</span><span class="chip B">Option B · Sakarya</span>
+        <span class="chip">Thursday → Sunday</span><span class="chip">Establishment, not wild camping</span>
+      </div>
+    </div>
+    <div class="trail-sign" aria-label="Decisions for the Monday meeting">
+      <div class="eyebrow" style="margin-bottom:2px">To decide Monday, 20:00</div>
+      <div class="sign"><span class="blaze"></span><span class="k">City</span><span class="v">Bursa or Sakarya<small>Decide by headcount per city · see Travel</small></span></div>
+      <div class="sign"><span class="blaze"></span><span class="k">Dates</span><span class="v">Thu 3 – Sun 6 June 2027<small>or 27–30 May, 10–13 June</small></span></div>
+      <div class="sign"><span class="blaze"></span><span class="k">Theme</span><span class="v">Five ideas below<small>Tied to the 2027 New Testament year</small></span></div>
+      <div class="sign"><span class="blaze"></span><span class="k">Scripture</span><span class="v">Picked with the theme<small>e.g. Philippians 4:4</small></span></div>
+      <div class="sign"><span class="blaze"></span><span class="k">Stay</span><span class="v">Bungalows or ready tents<small>Six establishments compared</small></span></div>
+    </div>
+  </div>
+</header>
+</div>
+
+<nav class="top" aria-label="Sections"><div class="wrap">
+  <a href="#group">Group</a><a href="#travel">Travel</a><a href="#compare">A vs B</a><a href="#trails">Trails</a>
+  <a href="#stays">Stays</a><a href="#gear">Gear</a><a href="#schedule">Schedule</a><a href="#theme">Theme &amp; dates</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="group">
+  <div class="group-grid">
+    <div class="sec-head">
+      <div class="eyebrow">Who is coming</div>
+      <h2>25–30 people, mostly brothers</h2>
+      <p class="lead">Three missionary couples, two or three leaders and speakers, three or four YSA sisters, and the rest YSA brothers. Couples share a room, and men and women sleep apart, so the split sets how many rooms or tents we need.</p>
+      <div style="margin-top:8px"><div class="seg" role="group" aria-label="Headcount">
+        <button type="button" data-hc="30" aria-pressed="true">30 people</button><button type="button" data-hc="25" aria-pressed="false">25 people</button>
+      </div></div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <div class="legend">
+        <span><i style="background:var(--amber)"></i>Couples</span><span><i style="background:var(--ink-2)"></i>Leaders &amp; speakers</span>
+        <span><i style="background:var(--A)"></i>YSA sisters</span><span><i style="background:var(--B)"></i>YSA brothers</span>
+      </div>
+    </div>
+    <div class="tbl" style="align-self:center"><table id="unitsTbl"></table></div>
+  </div>
+</section>
+
+<section id="travel">
+  <div class="sec-head">
+    <div class="eyebrow">Seven home cities</div>
+    <h2>Who travels farther?</h2>
+    <p class="lead">Sakarya is closer for Istanbul, Ankara, Bolu and Adana. Bursa is closer for Izmir, Isparta and Antalya. Drive times are rough one-way estimates by road. Count who comes from each city before voting.</p>
+  </div>
+  <div class="travel">
+    <div class="mapbox">
+      <svg id="trMap" viewBox="0 0 1000 810" role="img" aria-label="Map of western Turkey with drive lines from home cities to the selected option"></svg>
+      <div class="mapctl"><div class="seg" role="group" aria-label="Show option">
+        <button type="button" data-tr="A" aria-pressed="false">A · Bursa</button><button type="button" data-tr="B" aria-pressed="true">B · Sakarya</button>
+      </div></div>
+    </div>
+    <div class="tbl"><table id="trTbl"></table></div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="sec-head">
+    <div class="eyebrow">Option A vs Option B</div>
+    <h2>Bigger mountains, or shorter trips?</h2>
+    <p class="lead">Bursa has real mountain hiking on Uludağ and the only site we found that lists a meeting hall. Sakarya is closer for most of the group, has more places to stay, and sits next to the Bolu rental contacts.</p>
+  </div>
+  <div class="cmp">
+    <article class="opt A">
+      <h3><span>A</span> · Bursa</h3>
+      <div class="pc"><h4>Pros</h4><ul>
+        <li><span><b>One-stop site:</b> Nefes Dağyenice lists bungalows, glamping tents, a restaurant and a meeting hall, about 20 min from Bursa center.</span></li>
+        <li><span><b>Real mountain hiking:</b> Uludağ, the highest peak in the Marmara region, with lakes near 2,200 m.</span></li>
+        <li><span><b>New Testament tie-in:</b> İznik is ancient Nicaea, home of the Council of 325.</span></li>
+        <li><span><b>Closer for Izmir, Isparta and Antalya.</b></span></li>
+        <li><span><b>City services:</b> hospitals, shops and an airport nearby.</span></li>
+      </ul></div>
+      <div class="pc con"><h4>Cons</h4><ul>
+        <li><span><b>3–5 hours</b> from Istanbul, Ankara and Bolu.</span></li>
+        <li><span><b>Uludağ in May–June</b> can still have snow, ice, wind and heavy weekend traffic.</span></li>
+        <li><span><b>İznik sites</b> are about 1 hour from Bursa and list no meeting room.</span></li>
+        <li><span><b>Bolu gear</b> travels 3.5–4 hours.</span></li>
+      </ul></div>
+    </article>
+    <article class="opt B">
+      <h3><span>B</span> · Sakarya</h3>
+      <div class="pc"><h4>Pros</h4><ul>
+        <li><span><b>Close to most people:</b> about 2 h from Istanbul, 3 h from Ankara, 1.5–2 h from Bolu.</span></li>
+        <li><span><b>Many places to stay</b> around Sapanca, so there's room to compare and bargain for a group price.</span></li>
+        <li><span><b>Easy gear logistics:</b> the Bolu rental companies are close.</span></li>
+        <li><span><b>Moderate hikes:</b> Soğucak plateau at 1,100 m, waterfalls, lakeshore paths.</span></li>
+        <li><span><b>Milder weather</b> for outdoor lessons in late May and June.</span></li>
+      </ul></div>
+      <div class="pc con"><h4>Cons</h4><ul>
+        <li><span><b>Lower forest hiking</b> with no big summit day.</span></li>
+        <li><span><b>Meeting rooms unconfirmed:</b> most sites aim at couples and families.</span></li>
+        <li><span><b>Weekend crowds and prices:</b> the İl Ormanı bungalows were 3,500 TL weekdays, 4,500 TL weekends in 2025.</span></li>
+        <li><span><b>6–8 hours</b> from Izmir, Isparta and Antalya.</span></li>
+      </ul></div>
+    </article>
+  </div>
+  <div class="scorebar" id="scores" aria-label="Side-by-side comparison"></div>
+</section>
+
+<section id="trails">
+  <div class="sec-head">
+    <div class="eyebrow">Hiking routes near each stay</div>
+    <h2>Trail maps</h2>
+    <p class="lead">Every route follows real paths from OpenStreetMap, with climbs and profiles from satellite elevation data (SRTM). Positions were checked against Google Maps and satellite imagery. Contour lines are drawn from the same elevation data. Use the satellite buttons to see each route and place from above.</p>
+  </div>
+  <div class="trailtabs" role="tablist" id="viewTabs"></div>
+  <div class="trail-layout">
+    <div>
+      <div class="mapbox tmap">
+        <svg id="tMap" role="img" aria-label="Trail map"></svg>
+        <div class="mapctl"><button type="button" id="resetView">Whole area</button></div>
+      </div>
+      <div class="maplegend">
+        <span><i style="background:var(--forest)"></i>Easy</span><span><i style="background:var(--amber)"></i>Moderate</span><span><i style="background:var(--blaze)"></i>Hard</span>
+        <span><i class="sq" style="background:var(--A)"></i>Stay, option A</span><span><i class="sq" style="background:var(--B)"></i>Stay, option B</span>
+        <span><i style="background:none;border-top:2px dotted var(--ink-3);height:0"></i>Cable car</span><span><i style="background:none;border-top:3px dashed var(--A);height:0"></i>Drive from stay to trailhead</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="rlist" id="rlist"></div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </div>
+  <h3 style="margin:28px 0 10px">Do the trails start at the establishment?</h3>
+  <p class="lead" style="margin-bottom:12px">None start right at a bungalow door. The closest is the lakeshore walk, which starts at the gate of Sakarya İl Ormanı park, the same park as its bungalows. Every other trailhead needs a drive: 6 minutes in İznik, 10–20 minutes around Sapanca, and about an hour from Nefes Dağyenice to Uludağ. The dashed lines on the maps show these drives.</p>
+  <div class="tbl"><table id="accessTbl"></table></div>
+  <h3 style="margin:28px 0 4px">Drive time from each stay to each trailhead</h3>
+  <p class="note">One way, by road, without traffic. Darker = farther. Tap a stay on the map to see its drives drawn.</p>
+  <div class="matrix" id="matrix"></div>
+  <p class="note" style="margin-top:12px">Walking time = distance ÷ 4 km/h + 1 hour per 600 m of climb, for a mixed-fitness group, before breaks and lessons.</p>
+</section>
+
+<section id="stays">
+  <div class="sec-head">
+    <div class="eyebrow">Establishments</div>
+    <h2>Six places to call</h2>
+    <p class="lead">Three per city. None publishes group prices, so each needs a written quote. Only Nefes Dağyenice lists a meeting hall; for the rest, ask whether a restaurant hall, big tent or villa living room can host lessons.</p>
+  </div>
+  <div class="filter"><div class="seg" role="group" aria-label="Filter stays">
+    <button type="button" data-sf="all" aria-pressed="true">All</button><button type="button" data-sf="A" aria-pressed="false">A · Bursa</button><button type="button" data-sf="B" aria-pressed="false">B · Sakarya</button>
+  </div></div>
+  <div class="stays" id="staysGrid"></div>
+  <div class="qbox">
+    <h3>Questions to send each place</h3>
+    <ol id="qlist"></ol>
+    <button type="button" class="btn" id="copyQ">Copy questions</button>
+    <div class="toast" id="qToast"></div>
+  </div>
+</section>
+
+<section id="gear">
+  <div class="sec-head">
+    <div class="eyebrow">Equipment</div>
+    <h2>What we need to bring</h2>
+    <p class="lead">Two scenarios: we pitch our own tents, or the establishment provides bungalows or ready tents. Switch the headcount and the quantities update. The copy button gives a plain list you can send to the Bolu rental companies.</p>
+  </div>
+  <div class="gear-ctl">
+    <div><label>Scenario</label><div class="seg" role="group" aria-label="Scenario">
+      <button type="button" data-sc="own" aria-pressed="false">Own tents</button><button type="button" data-sc="est" aria-pressed="true">Establishment provides</button>
+    </div></div>
+    <div><label>Headcount</label><div class="seg" role="group" aria-label="Gear headcount">
+      <button type="button" data-ghc="30" aria-pressed="true">30</button><button type="button" data-ghc="25" aria-pressed="false">25</button>
+    </div></div>
+    <button type="button" class="btn ghost" id="copyGear">Copy list for rental companies</button>
+    <span class="toast" id="gToast"></span>
+  </div>
+  <div class="gear-cols" id="gearCols"></div>
+</section>
+
+<section id="schedule">
+  <div class="sec-head">
+    <div class="eyebrow">Draft program · Thursday to Sunday</div>
+    <h2>Four days, with room to breathe</h2>
+    <p class="lead">Three lessons outdoors, the rest indoors in a meeting room. Free time every day, about three hours on Friday and Saturday. Adapted from the 2026 Eskişehir program.</p>
+  </div>
+  <div class="daybars" id="daybars"></div>
+  <div class="legend" style="margin:-8px 0 18px">
+    <span><i class="ty-spirit"></i>Spiritual &amp; lessons</span><span><i class="ty-out"></i>Hikes &amp; service</span><span><i class="ty-meal"></i>Meals</span><span><i class="ty-free"></i>Free time</span><span><i class="ty-log"></i>Arrival &amp; packing</span>
+  </div>
+  <div class="daytabs" id="dayTabs" role="tablist"></div>
+  <div class="tl" id="tl"></div>
+</section>
+
+<section id="theme">
+  <div class="sec-head">
+    <div class="eyebrow">Theme, scripture and dates</div>
+    <h2>Pick a theme</h2>
+    <p class="lead">The Church's 2027 youth theme is “Rejoice in Christ” (Philippians 4:4), and 2027 Come, Follow Me studies the New Testament. Tap a card to mark the group's favourite during the meeting.</p>
+  </div>
+  <div class="themes" id="themes"></div>
+  <div class="cal-grid">
+    <div class="windows">
+      <h3 style="margin-top:22px">Candidate weekends</h3>
+      <div id="windows" class="windows"></div>
+      <p class="note">If the camp is 3–6 June, the hotel conference six months later lands on Thu 2 – Sun 5 December 2027.</p>
+    </div>
+    <div class="cal" id="cal"></div>
+    <div>
+      <h3 style="margin-top:22px;margin-bottom:10px">Avoid</h3>
+      <div class="avoid-list" id="avoid"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="eyebrow">Sources</div>
+  <ul>
+    <li><a href="https://www.nefesdagyenice.com/" target="_blank" rel="noopener">Nefes Dağyenice Doğada</a> · <a href="https://iznikseyirkamp.com/" target="_blank" rel="noopener">İznik Seyir Kamp</a> · <a href="https://turkeyoutdoor.org/bursa-iznik-golu-doga-muhit-camping-kamp-alani-tanitimi/" target="_blank" rel="noopener">Doğa Muhit Camping (Turkey Outdoor)</a></li>
+    <li><a href="https://www.ruyasapanca.com/" target="_blank" rel="noopener">Rüya Sapanca</a> · <a href="https://www.eleman.net/is-rehberi/pratik-bilgiler/bungalov-ev-fiyatlari-sakarya-tabiat-parki-h15015" target="_blank" rel="noopener">Sakarya İl Ormanı bungalows</a> · <a href="https://kampyeri.org/blog/sapanca-kamp-alanlari-2026-en-yi-12-kamp-alani" target="_blank" rel="noopener">Sapanca campsites (Kampyeri)</a></li>
+    <li>Uludağ trails: <a href="https://www.wikiloc.com/trails/hiking/turkey/bursa" target="_blank" rel="noopener">Wikiloc Bursa</a>, <a href="https://www.alltrails.com/parks/turkey/bursa/bursa-uludag-national-park" target="_blank" rel="noopener">AllTrails Uludağ</a>, <a href="https://www.cnnturk.com/yasam/sakligol-buyuluyor" target="_blank" rel="noopener">CNN Türk on Saklıgöl</a></li>
+    <li>Sakarya: <a href="https://www.sakarya.bel.tr/uploads/files/TurizmBrosur2025.pdf" target="_blank" rel="noopener">Sakarya tourism brochure 2025</a>, <a href="https://kureansiklopedi.com/tr/detay/sogucak-yaylasi-66840" target="_blank" rel="noopener">Soğucak Yaylası (Küre)</a>, <a href="https://sakarya.meb.gov.tr/meb_iys_dosyalar/2020_11/13135839_sapanca_YanYk_Vadisi_programY.pdf" target="_blank" rel="noopener">Yanık Vadisi hike plan (Sakarya MEB)</a></li>
+    <li><a href="https://www.thechurchnews.com/members/2026/09/02/2027-youth-theme-announced-rejoice-in-christ/" target="_blank" rel="noopener">2027 youth theme (Church News)</a> · <a href="https://www.thechurchnews.com/members/2026/09/25/church-announces-dates-2027-broadcasts-events/" target="_blank" rel="noopener">2027 Church broadcasts</a></li>
+  </ul>
+  <ul>
+    <li>Route paths: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · Elevation: SRTM via <a href="https://open-meteo.com/en/docs/elevation-api" target="_blank" rel="noopener">Open-Meteo</a> · Place positions checked on Google Maps · Routes checked against Esri World Imagery satellite</li>
+    <li>TripAdvisor ratings as of 2 Nov 2026: <a href="https://www.tripadvisor.com/Attraction_Review-g297976-d2533697-Reviews-Uludag-Bursa_Province.html" target="_blank" rel="noopener">Uludağ</a>, <a href="https://www.tripadvisor.com/Attraction_Review-g297977-d3831109-Reviews-CumalIkIzIk-Bursa.html" target="_blank" rel="noopener">Cumalıkızık</a>, <a href="https://www.tripadvisor.com/Attraction_Review-g297977-d553560-Reviews-Iznik-Bursa.html" target="_blank" rel="noopener">İznik</a>, <a href="https://www.tripadvisor.com/Attraction_Review-g612463-d4992851-Reviews-Sapanca_Lake-Sapanca_Sakarya_Province.html" target="_blank" rel="noopener">Sapanca Lake</a>, <a href="https://www.tripadvisor.com/Attraction_Review-g612463-d7615475-Reviews-Sakarya_Il_Ormani_Tabiat_Parki-Sapanca_Sakarya_Province.html" target="_blank" rel="noopener">İl Ormanı park</a>, <a href="https://www.tripadvisor.com/Attraction_Review-g7719378-d10744488-Reviews-Dogancay_Selalesi-Sakarya_Sakarya_Province.html" target="_blank" rel="noopener">Doğançay</a>, <a href="https://www.tripadvisor.com/Attraction_Review-g3237756-d4739029-Reviews-Acarlar_Floodplain_Forest-Karasu_Sakarya_Province.html" target="_blank" rel="noopener">Acarlar</a>. TripAdvisor lists no hiking trails for Sapanca.</li>
+  </ul>
+  <p>Drive times and Turkish holiday dates are approximate. Trail lines are good for planning; carry a GPS track or a guide on the day. Map borders: Turkish provinces GeoJSON (cihadturhan/tr-geojson).</p>
+</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const PROV=[{"n":"Adana","d":"M910,716L910,716L910,716L910,716L910,716ZM909,715L909,716L909,716L909,716L909,715ZM903,715L903,715L903,715L903,715L903,715ZM903,714L903,714L903,714L903,714L903,714ZM903,714L903,714L903,714L903,714L903,714ZM903,711L903,711L903,711L903,711L903,711ZM940,708L940,709L940,709L940,708L940,708ZM942,708L942,708L941,708L942,708L942,708ZM949,706L949,707L949,707L949,706L949,706ZM951,705L951,705L951,705L951,705L951,705ZM1013,554L1011,558L1012,565L1016,575L1010,588L995,590L984,598L969,625L969,640L971,644L966,654L968,655L980,648L984,650L986,657L984,667L975,676L972,683L974,686L965,696L960,700L948,700L944,703L942,707L942,704L941,705L941,708L940,707L938,707L937,709L938,708L940,711L944,706L944,704L947,703L946,707L947,705L946,707L952,707L951,706L953,707L946,712L943,721L939,722L938,726L923,722L916,729L915,725L914,725L916,721L910,718L911,716L909,715L908,716L907,714L909,713L907,711L900,709L898,712L900,713L909,720L914,726L882,707L874,705L877,702L886,699L889,694L889,689L888,674L882,665L875,659L873,648L861,623L862,612L869,604L868,597L864,587L865,584L870,581L885,582L890,580L903,565L903,555L906,550L927,554L943,550L949,536L982,521L996,492L1010,485L1017,485L1022,488L1029,504L1022,512L1013,544L1013,554Z"},{"n":"Afyon","d":"M526,397L528,402L535,406L559,406L560,423L551,441L548,452L550,459L557,464L516,490L511,488L503,479L499,479L471,507L455,513L443,520L428,535L418,542L414,546L410,557L412,563L409,568L401,572L389,571L377,574L374,567L365,563L359,563L359,545L385,531L394,522L396,516L396,512L385,492L368,487L370,480L380,462L382,454L399,444L403,440L419,406L430,402L435,397L437,391L442,394L445,401L452,407L455,408L467,401L471,396L479,391L489,397L504,390L514,381L520,383L526,397Z"},{"n":"Aksaray","d":"M804,438L810,444L804,458L811,465L818,484L823,488L820,497L820,507L823,513L823,524L817,527L811,537L803,535L799,537L797,542L763,550L735,553L727,550L722,544L710,517L710,512L716,500L717,490L724,473L732,463L753,454L767,454L777,445L779,439L773,423L777,416L792,430L802,432L804,438Z"},{"n":"Amasya","d":"M951,180L965,182L976,180L986,184L998,177L1000,167L1006,167L1017,171L1017,176L1024,181L1021,187L1025,194L1027,201L1024,211L1012,225L1000,233L991,235L984,233L976,227L965,228L953,250L939,256L934,261L933,267L919,266L915,262L916,246L926,232L928,218L924,213L908,207L897,206L890,201L885,184L887,183L887,171L891,160L891,153L930,163L945,174L948,178L951,180Z"},{"n":"Ankara","d":"M705,239L708,247L712,249L719,249L722,242L726,242L758,256L750,265L743,285L747,295L747,302L745,306L729,315L721,322L718,335L717,345L714,359L709,370L714,376L722,377L725,382L722,389L727,397L738,385L745,396L779,413L773,423L779,441L777,445L768,453L753,454L732,463L722,444L723,413L705,382L698,390L692,390L688,397L683,401L676,398L670,398L661,407L657,413L643,411L634,418L617,409L601,414L596,412L577,395L588,389L589,369L588,354L579,340L573,325L573,320L577,315L574,307L568,306L558,292L551,289L507,285L492,289L485,288L482,286L482,278L478,273L486,263L495,256L494,243L496,238L504,240L516,247L546,252L559,247L568,249L579,247L603,237L625,238L635,224L630,209L637,202L652,202L682,215L705,239Z"},{"n":"Antalya","d":"M357,782L357,782L356,783L356,783L357,782ZM359,780L359,781L358,780L358,780L359,780ZM368,779L369,780L367,782L367,781L368,779ZM358,779L358,779L358,779L358,779L358,779ZM355,778L356,778L355,778L355,778L355,778ZM356,778L356,778L356,778L356,778L356,778ZM342,777L343,777L343,777L345,777L342,778L342,777ZM356,776L356,777L355,777L355,777L356,776ZM356,776L356,776L356,777L356,777L356,776ZM352,776L352,778L354,779L349,782L352,776ZM380,776L380,776L379,776L380,776L380,776ZM376,775L376,776L376,776L376,776L376,775ZM376,776L376,775L376,775L376,775L376,776ZM348,773L348,774L348,774L348,774L348,773ZM384,773L384,773L383,773L383,773L384,773ZM432,773L432,774L432,775L432,773L432,773ZM384,772L381,776L381,775L377,776L384,772ZM432,771L432,772L431,772L432,771L432,771ZM337,771L337,772L337,772L337,771L337,771ZM382,771L383,771L383,772L382,771L382,771ZM383,770L383,771L382,771L382,770L383,770ZM330,769L329,770L328,771L328,770L330,769ZM331,769L331,769L330,769L330,769L331,769ZM439,767L439,768L439,768L438,767L439,767ZM406,763L406,764L406,764L406,763L406,763ZM446,739L446,739L446,739L446,739L446,739ZM555,715L555,715L555,715L555,715L555,715ZM450,695L450,695L450,696L450,696L450,695ZM534,627L562,629L573,634L611,670L617,689L630,693L634,702L633,712L638,726L643,733L653,741L651,748L652,761L645,783L641,785L636,783L617,767L615,760L609,755L605,744L591,729L589,728L588,730L587,730L585,727L566,721L563,716L556,716L545,707L528,700L528,698L523,695L491,688L466,690L461,685L453,689L449,696L448,712L447,715L447,720L450,722L447,728L448,730L445,731L442,738L442,741L439,742L440,744L439,747L444,755L438,757L438,759L440,759L440,762L432,771L432,762L428,763L420,757L412,757L407,759L407,763L406,762L404,766L398,764L390,770L385,767L381,770L381,773L377,772L375,773L377,773L373,776L375,776L372,779L369,779L371,777L365,776L361,781L361,778L358,778L356,776L357,774L358,775L357,772L351,773L356,771L339,769L337,770L339,768L334,769L334,766L335,764L333,764L330,764L331,766L329,768L325,766L319,759L323,757L326,746L326,741L350,719L353,698L360,686L361,681L368,679L373,672L377,655L384,647L397,640L423,632L428,633L431,640L436,642L466,641L471,642L479,625L484,623L490,627L508,621L514,617L522,617L527,624L534,627Z"},{"n":"Aydın","d":"M130,629L131,629L131,630L130,629L130,629ZM138,618L138,619L138,619L138,618L138,618ZM116,599L116,600L116,600L116,600L116,599ZM112,593L112,594L114,596L112,594L112,593ZM99,588L98,588L98,588L98,588L99,588ZM99,588L99,588L99,588L99,588L99,588ZM100,583L100,583L100,583L100,583L100,583ZM276,539L281,546L274,556L271,564L279,574L282,583L269,595L256,593L252,596L250,598L251,602L255,610L241,608L225,596L218,599L211,610L185,613L167,608L148,598L142,607L139,618L134,620L133,623L130,623L130,627L126,625L123,628L117,626L119,621L119,620L121,619L119,617L120,611L120,609L116,611L118,609L118,605L117,603L117,608L116,609L117,601L115,603L114,596L115,599L115,600L115,601L115,601L119,596L110,591L98,587L101,583L108,584L121,579L124,571L124,567L121,564L122,562L124,561L124,558L133,558L141,555L146,551L149,546L169,546L174,547L189,545L190,542L192,543L203,540L220,542L253,530L264,530L267,531L266,534L276,539Z"},{"n":"Balıkesir","d":"M59,379L59,382L57,382L58,379L59,379ZM52,377L52,377L51,377L52,377L52,377ZM65,376L65,377L64,377L64,376L65,376ZM53,376L53,376L52,376L52,376L53,376ZM59,374L60,375L58,375L59,374L59,374ZM57,374L57,375L56,375L56,374L57,374ZM68,373L68,374L67,374L67,374L68,373ZM58,373L59,374L57,374L57,373L58,373ZM66,373L66,373L65,373L65,373L66,373ZM68,370L69,371L68,371L68,370L68,370ZM71,370L71,370L71,370L71,370L71,370ZM75,369L75,370L74,370L75,370L75,369ZM69,369L70,370L69,370L69,369L69,369ZM56,369L56,369L56,370L56,369L56,369ZM60,367L66,368L61,371L68,375L61,376L60,373L61,372L61,369L59,369L60,367ZM58,367L59,368L58,371L56,368L58,367ZM70,366L70,366L69,366L69,366L70,366ZM176,243L175,244L175,244L175,243L176,243ZM205,233L205,234L205,234L205,233L205,233ZM203,232L203,233L204,234L202,233L203,232ZM163,232L163,235L162,235L162,234L163,232ZM206,232L206,232L206,232L206,232L206,232ZM154,232L154,232L153,232L153,232L154,232ZM159,226L159,228L162,229L160,231L162,234L155,232L155,230L158,230L157,227L159,226ZM168,224L168,225L168,225L167,225L168,224ZM155,224L156,227L155,228L154,228L155,224ZM172,224L174,224L175,227L176,225L183,226L199,230L197,235L186,242L192,246L202,243L217,241L210,251L208,264L208,277L210,281L217,287L226,308L229,308L247,321L262,322L273,338L285,339L289,341L291,343L288,348L288,352L283,371L274,382L261,388L261,397L255,395L242,402L212,412L207,410L202,396L196,390L186,388L185,383L188,376L186,372L184,374L176,372L165,374L158,372L149,365L138,369L115,364L94,385L77,396L72,392L70,385L60,383L61,378L64,377L64,379L62,380L66,382L65,379L68,378L69,374L79,368L78,363L84,362L84,357L91,356L93,348L90,344L86,343L82,347L76,345L65,347L65,335L68,329L72,327L83,328L96,319L107,315L113,315L124,320L140,312L144,305L146,299L146,296L142,292L148,276L144,266L154,257L156,251L160,250L163,252L173,252L184,244L179,240L176,242L175,239L171,237L172,234L165,231L165,227L172,224ZM149,223L152,225L149,228L151,229L146,232L145,228L149,223ZM147,221L148,222L144,223L144,222L147,221ZM173,211L172,211L172,211L172,211L173,211ZM146,209L146,209L146,210L145,210L146,209ZM165,207L165,207L164,208L164,207L165,207ZM160,206L171,211L158,218L150,215L150,209L160,206Z"},{"n":"Bartın","d":"M626,69L626,69L626,69L626,69L626,69ZM655,59L663,72L669,89L679,94L669,100L666,98L662,103L657,106L650,119L630,132L623,134L618,126L591,95L591,92L594,92L593,91L603,88L606,84L605,83L611,80L610,78L616,73L622,73L626,69L629,71L637,63L644,62L645,60L655,59Z"},{"n":"Bilecik","d":"M406,244L422,240L438,242L453,249L463,269L448,272L443,290L438,297L427,299L417,309L404,308L398,311L392,320L392,325L397,330L387,331L365,324L361,313L362,306L360,303L370,303L371,300L371,295L365,291L362,283L366,267L372,261L376,255L373,247L373,239L376,231L382,226L386,224L390,232L406,244Z"},{"n":"Bolu","d":"M580,162L616,163L616,172L638,182L641,189L639,199L630,209L635,224L626,237L620,239L603,237L579,247L568,249L559,247L546,252L516,247L504,240L496,238L494,243L495,256L486,263L478,273L463,269L455,252L453,249L456,242L451,235L458,225L473,225L481,223L485,219L486,205L493,208L509,205L516,209L526,207L532,202L533,189L536,181L549,179L558,175L563,171L565,166L565,162L562,159L580,162Z"},{"n":"Burdur","d":"M445,582L456,582L461,585L467,604L481,620L482,623L477,626L471,642L466,641L436,642L431,640L427,632L420,632L397,640L380,650L377,656L375,669L366,680L361,681L355,671L348,667L344,667L338,675L333,677L334,669L332,661L333,651L337,641L345,631L351,619L351,615L346,612L346,596L379,573L392,572L395,580L400,582L424,564L429,565L435,575L445,582Z"},{"n":"Bursa","d":"M249,219L251,220L249,222L250,224L248,226L247,219L249,219ZM385,220L386,224L378,229L373,237L373,247L376,254L372,261L366,267L362,283L365,291L371,295L371,301L369,303L354,305L347,305L338,301L334,302L327,319L320,330L318,344L316,347L303,349L294,346L285,339L275,339L272,337L262,322L247,321L229,308L226,308L217,287L210,281L208,277L210,251L217,241L246,241L244,243L243,245L247,241L260,246L274,241L281,242L287,246L292,246L299,245L303,238L309,237L303,231L297,230L295,228L299,220L320,221L330,218L338,221L349,221L371,213L385,218L385,220Z"},{"n":"Çanakkale","d":"M5,310L7,312L8,316L6,318L-4,312L5,310ZM8,301L9,301L8,301L8,301L8,301ZM5,300L5,300L5,300L5,300L5,300ZM6,298L7,299L8,299L8,299L7,300L6,298ZM-5,260L-2,264L-3,272L-1,273L1,270L-1,274L-26,280L-33,275L-32,272L-21,264L-15,264L-5,260ZM70,242L70,243L69,242L69,242L70,242ZM126,231L131,239L128,240L128,244L146,252L155,252L154,257L144,266L148,275L142,292L146,296L146,299L144,305L140,312L124,320L113,315L107,315L96,319L83,328L71,327L68,329L66,334L66,347L65,348L45,352L37,355L36,357L26,356L24,359L23,357L13,360L6,357L10,343L14,340L16,334L14,322L16,319L16,314L13,311L16,306L15,302L17,292L19,290L26,291L33,287L36,278L40,276L39,273L40,271L40,266L44,266L51,263L56,256L59,255L68,246L68,245L74,240L90,240L93,242L101,242L107,235L113,234L118,236L126,231ZM102,196L101,216L98,221L88,223L69,234L69,238L63,240L62,245L58,250L50,255L42,263L35,265L37,273L22,285L17,285L27,264L27,259L22,254L24,253L24,251L21,251L30,245L33,245L45,235L61,227L69,226L73,220L73,222L75,222L82,217L80,209L74,204L77,197L84,197L97,190L100,191L102,196Z"},{"n":"Çankırı","d":"M763,169L768,175L788,183L790,190L789,205L794,225L800,236L800,241L795,250L781,258L757,256L726,242L722,242L719,249L712,249L708,247L703,236L682,216L652,202L637,202L641,190L639,185L646,178L656,170L689,162L694,153L704,155L715,161L721,168L726,170L768,152L770,155L771,158L764,165L763,169Z"},{"n":"Çorum","d":"M865,139L868,139L872,132L877,139L880,154L884,155L891,153L891,160L887,171L887,183L885,184L892,203L898,206L908,207L916,210L924,213L928,218L926,232L916,246L915,262L911,264L899,264L900,279L888,287L874,285L862,292L823,292L816,298L799,299L790,303L791,297L804,286L799,282L795,274L792,263L781,258L795,250L800,239L789,205L790,190L788,183L812,174L812,167L806,163L805,159L813,143L827,126L830,126L835,129L865,139Z"},{"n":"Denizli","d":"M378,490L385,493L396,514L394,522L385,531L359,545L359,563L365,563L374,567L377,574L346,596L346,612L351,615L351,619L345,631L334,647L332,661L327,666L326,676L320,686L313,685L302,672L302,664L300,661L300,657L297,652L287,644L273,640L269,626L256,621L256,611L250,598L256,593L269,595L282,582L279,574L271,564L274,556L281,545L274,538L265,533L273,526L275,516L286,510L316,519L336,511L347,519L351,520L352,510L358,500L361,489L368,487L378,490Z"},{"n":"Düzce","d":"M523,147L533,157L562,159L565,162L565,166L562,171L556,176L549,179L536,181L533,189L532,202L526,207L516,209L509,205L493,208L486,205L489,200L480,192L478,186L481,177L491,169L494,164L488,155L511,152L523,147Z"},{"n":"Edirne","d":"M72,213L73,213L72,213L72,213L72,213ZM74,212L74,213L74,213L74,212L74,212ZM3,196L3,196L3,196L3,196L3,196ZM1,191L2,192L3,193L3,194L1,191ZM95,41L97,48L93,71L89,78L90,81L98,86L98,94L90,105L86,115L88,121L88,127L92,134L92,140L87,147L76,152L73,157L73,160L77,165L72,177L71,188L77,197L74,204L78,208L60,210L52,216L45,213L41,215L37,214L30,216L12,216L9,214L6,210L6,205L3,198L12,196L15,188L21,185L20,183L22,177L24,178L26,174L28,177L30,176L28,173L35,170L32,167L34,164L35,161L31,156L32,150L30,150L32,146L30,142L33,132L40,132L52,121L58,123L62,119L62,110L59,102L58,87L53,85L49,80L36,74L33,68L37,59L54,58L57,53L57,50L56,47L61,41L74,44L77,41L82,42L85,40L95,37L95,41Z"},{"n":"Eskişehir","d":"M488,289L507,285L551,289L558,292L568,306L574,307L577,315L573,320L573,325L578,337L588,355L589,378L587,389L575,396L572,404L566,408L556,405L536,407L528,402L520,383L514,381L504,390L489,397L479,391L471,396L467,401L453,408L444,400L442,394L437,391L433,381L424,372L423,356L406,339L410,329L397,330L392,325L392,318L399,310L405,308L417,309L427,299L434,299L439,296L443,290L448,272L463,269L476,273L482,278L482,287L488,289Z"},{"n":"Gaziantep","d":"M1168,606L1176,608L1182,615L1175,615L1170,619L1162,631L1160,640L1165,663L1174,673L1178,680L1178,693L1167,698L1156,702L1143,704L1128,714L1121,698L1102,688L1098,675L1093,670L1080,669L1076,671L1070,683L1058,690L1057,695L1047,690L1042,691L1024,676L1033,656L1052,636L1068,624L1071,626L1075,641L1079,643L1083,641L1087,635L1097,628L1137,620L1139,616L1140,606L1145,606L1155,601L1168,606Z"},{"n":"Hatay","d":"M999,705L999,706L999,706L999,706L999,705ZM986,668L1005,669L1014,676L1024,676L1042,691L1046,691L1047,693L1042,701L1043,708L1038,717L1039,726L1035,734L1038,747L1041,748L1042,752L1040,755L1046,755L1046,759L1049,760L1049,765L1041,770L1038,768L1029,767L1027,771L1019,769L1020,773L1017,776L1019,786L1018,797L1014,798L1011,797L1010,798L1010,802L1001,803L998,809L998,818L997,820L992,814L982,812L983,807L981,805L974,807L972,806L978,795L970,777L959,759L959,756L962,751L966,750L967,747L970,744L972,741L979,737L984,729L995,722L999,722L1002,714L999,708L1000,705L999,705L1001,698L995,689L993,689L994,688L989,683L982,679L974,685L975,686L975,688L972,684L976,675L984,667L986,668Z"},{"n":"Isparta","d":"M535,563L534,572L523,615L522,617L513,617L508,621L490,627L482,623L479,617L467,604L461,585L456,582L442,580L433,573L429,565L424,565L400,582L397,581L392,575L393,573L400,573L409,567L412,562L410,557L414,546L418,542L428,535L443,520L455,513L471,507L478,498L500,479L503,479L511,488L515,490L514,495L516,498L551,529L551,533L549,536L537,541L532,548L532,556L535,563Z"},{"n":"İstanbul","d":"M305,187L305,188L305,187L305,187L305,187ZM308,183L309,183L309,184L308,183L308,183ZM294,181L294,182L293,182L293,181L294,181ZM307,180L308,181L305,185L305,182L307,180ZM291,180L292,180L291,180L291,180L291,180ZM304,179L304,181L301,181L302,180L304,179ZM302,179L302,179L302,179L302,179L302,179ZM300,179L301,179L301,180L299,180L300,179ZM299,175L300,176L299,177L298,176L299,175ZM319,135L352,143L354,141L360,144L379,146L381,153L377,156L368,158L357,163L343,160L341,164L336,168L335,175L328,178L326,182L320,183L318,181L308,177L304,171L297,169L298,167L296,167L295,163L295,161L299,158L301,151L304,150L301,146L303,142L310,136L319,135ZM216,95L223,102L258,120L263,120L273,126L276,126L291,132L302,132L305,134L305,138L298,145L301,149L300,154L297,158L292,162L288,158L289,157L289,156L288,159L291,162L293,162L293,164L288,164L282,168L279,168L277,170L271,167L257,169L254,168L254,162L251,162L249,166L236,159L222,157L219,155L208,157L202,145L205,138L211,134L216,119L219,101L214,97L216,95Z"},{"n":"İzmir","d":"M86,541L87,541L87,541L86,541L86,541ZM99,538L99,538L99,538L99,538L99,538ZM84,538L84,538L84,538L84,538L84,538ZM79,525L79,525L79,525L79,525L79,525ZM79,523L79,524L79,524L79,524L79,523ZM43,520L43,520L43,521L43,521L43,520ZM42,519L43,520L42,519L42,519L42,519ZM75,519L76,519L76,519L75,519L75,519ZM44,519L44,519L43,519L43,519L44,519ZM20,506L21,507L21,507L20,507L20,506ZM67,502L67,502L66,502L66,502L67,502ZM45,497L45,498L44,499L44,498L45,497ZM77,496L78,497L77,498L77,496L77,496ZM46,496L46,497L45,497L45,497L46,496ZM44,495L44,495L44,495L44,495L44,495ZM44,494L44,494L44,495L44,494L44,494ZM77,493L78,494L77,494L77,494L77,493ZM46,494L46,494L46,493L46,493L46,494ZM46,493L46,494L46,495L45,494L46,493ZM48,493L48,493L48,493L48,493L48,493ZM76,492L76,492L75,493L75,492L76,492ZM78,491L78,492L78,493L78,492L78,491ZM77,491L77,491L77,492L77,491L77,491ZM30,490L31,491L31,492L30,491L30,490ZM38,489L38,491L37,490L37,489L38,489ZM36,489L37,489L36,490L36,489L36,489ZM95,488L95,489L95,489L95,488L95,488ZM91,487L91,487L91,488L91,488L91,487ZM75,486L76,488L75,489L74,487L75,486ZM35,486L35,490L33,491L32,488L35,486ZM83,476L84,477L84,477L83,476L83,476ZM84,476L84,476L85,476L85,477L84,476L84,476L84,476ZM69,475L72,477L72,481L73,483L73,486L68,483L69,475ZM80,475L81,476L81,477L80,475L80,475ZM51,461L51,461L52,462L51,462L51,461ZM51,460L51,461L50,461L50,460L51,460ZM71,458L72,459L71,459L71,459L71,458ZM70,458L70,458L70,459L70,458L70,458ZM70,455L71,456L71,457L69,456L70,455ZM70,453L70,454L69,454L69,454L70,453ZM72,451L72,451L72,451L72,451L72,451ZM87,436L87,437L86,437L86,436L87,436ZM88,434L88,435L87,435L87,435L88,434ZM102,432L102,432L102,432L102,432L102,432ZM82,429L82,430L82,430L82,430L82,429ZM79,427L81,427L81,429L79,428L79,427ZM79,425L79,426L79,426L79,426L79,425ZM78,416L78,418L78,418L78,416L78,416ZM77,416L77,417L77,417L77,416L77,416ZM144,396L147,403L148,415L141,422L136,424L134,427L115,431L111,442L110,445L121,450L125,472L131,470L143,473L153,482L171,487L179,500L182,502L196,493L208,493L210,494L212,498L218,502L239,507L243,512L248,527L251,530L220,542L203,540L192,543L190,542L189,545L174,547L169,546L150,546L141,555L133,558L125,558L124,555L125,551L122,546L119,545L112,546L108,542L105,542L103,538L96,535L88,536L85,540L81,524L78,522L76,524L76,519L77,519L74,516L72,518L62,518L61,526L59,526L60,530L58,531L56,526L55,529L52,528L50,523L51,520L50,522L48,521L48,519L45,520L43,516L41,516L42,518L42,519L42,519L38,516L39,513L38,511L37,511L38,513L36,515L33,515L28,510L23,510L23,507L27,507L28,503L30,503L28,501L28,496L29,499L31,496L31,502L34,502L34,504L37,505L38,500L39,503L47,496L47,493L44,490L48,493L51,490L43,484L39,488L40,481L36,477L37,475L37,478L37,475L35,472L35,463L35,461L41,458L47,459L51,462L51,464L55,468L56,473L61,477L63,485L58,484L59,487L57,490L60,491L63,496L63,501L66,505L69,504L66,500L66,498L67,500L67,499L66,495L69,489L72,490L75,498L79,499L100,491L107,494L110,492L113,487L115,488L114,485L109,487L106,485L101,485L96,486L93,489L93,488L90,487L90,485L87,480L82,478L81,477L87,479L87,476L83,475L83,473L83,474L81,474L83,473L82,470L81,471L78,467L74,466L75,464L71,462L74,460L72,459L73,458L71,453L73,451L73,450L77,451L81,448L82,450L84,449L88,451L89,447L91,448L92,447L88,440L90,441L93,438L92,441L95,442L97,440L94,439L95,437L101,434L100,435L101,436L105,433L103,431L102,431L104,428L102,425L99,428L100,428L95,427L94,425L95,425L92,425L92,427L90,425L84,428L83,426L79,424L78,418L80,414L78,416L78,413L87,408L82,400L75,396L94,385L115,364L138,369L143,380L144,396Z"},{"n":"Kahramanmaraş","d":"M1082,469L1084,471L1107,469L1105,474L1098,482L1098,486L1114,485L1123,487L1147,499L1154,505L1154,516L1141,555L1130,573L1119,584L1120,594L1135,601L1140,606L1139,617L1133,622L1097,628L1087,635L1083,641L1079,643L1075,641L1072,627L1069,624L1052,636L1044,629L1038,619L1028,624L1018,626L1005,625L1001,605L1007,597L1016,576L1016,573L1012,565L1011,558L1013,544L1022,511L1038,494L1047,480L1050,470L1071,464L1082,469Z"},{"n":"Karabük","d":"M684,99L691,112L687,118L681,122L678,128L678,137L679,140L687,145L694,153L689,162L656,170L639,185L636,180L616,172L616,163L597,162L599,149L601,145L608,139L618,134L630,132L648,121L653,117L657,106L662,103L666,98L669,100L679,94L684,99Z"},{"n":"Karaman","d":"M768,622L775,630L778,636L794,640L804,648L793,654L783,654L771,663L760,667L748,665L738,670L724,671L698,689L683,695L690,711L696,717L708,723L709,726L707,731L692,738L666,742L653,741L643,733L638,726L633,712L634,702L648,698L662,689L668,682L649,677L644,672L644,669L652,659L655,651L656,644L664,641L671,644L676,643L673,635L678,624L692,621L697,614L701,613L706,613L715,623L721,623L724,620L728,610L734,602L750,594L757,594L768,622Z"},{"n":"Kastamonu","d":"M719,35L753,40L789,40L807,44L806,54L811,63L811,71L833,73L843,80L843,84L840,90L830,96L831,126L827,126L823,129L813,143L805,159L806,163L812,167L812,174L788,183L774,178L767,175L764,171L764,165L771,158L770,155L767,152L730,169L724,169L707,157L701,153L694,153L685,143L679,140L678,130L681,122L687,118L691,112L682,95L669,89L663,72L655,59L678,54L689,47L703,44L719,35Z"},{"n":"Kayseri","d":"M975,392L982,399L987,401L1011,401L1017,398L1025,401L1040,395L1057,395L1068,401L1073,410L1055,459L1052,469L1049,472L1047,481L1030,503L1029,504L1027,501L1020,486L1010,485L995,493L981,521L949,536L943,550L925,554L908,549L913,539L913,523L910,516L906,512L894,511L889,508L882,491L875,489L873,486L873,480L875,476L884,472L889,466L889,449L878,443L883,416L886,413L890,413L906,417L930,405L928,398L929,394L949,392L962,380L969,383L975,392Z"},{"n":"Kilis","d":"M1121,698L1128,714L1126,716L1093,713L1090,714L1087,718L1081,713L1084,705L1073,698L1059,696L1057,693L1059,689L1070,683L1076,671L1080,669L1091,669L1096,672L1102,688L1121,698Z"},{"n":"Kırıkkale","d":"M776,258L792,263L795,274L804,286L790,298L791,315L776,328L770,346L765,352L761,361L753,361L744,369L738,385L727,397L722,389L725,382L722,377L714,376L709,370L714,359L719,327L722,321L728,315L745,305L747,296L743,285L747,271L756,258L762,255L776,258Z"},{"n":"Kırklareli","d":"M123,25L130,27L131,30L135,32L139,39L148,44L152,51L154,50L153,49L154,46L164,44L166,41L170,41L177,46L179,45L178,41L182,38L187,42L199,40L202,53L197,51L196,52L193,55L196,64L200,69L200,72L206,80L205,81L205,84L211,91L194,96L183,101L174,100L170,102L164,107L164,113L161,120L152,135L149,136L144,136L135,125L124,121L90,122L86,118L87,113L98,93L98,86L90,81L89,78L93,72L95,62L97,48L95,41L96,34L100,32L101,28L105,26L119,30L118,27L123,25Z"},{"n":"Kırşehir","d":"M807,324L819,323L826,325L830,332L838,339L836,347L849,356L844,369L844,376L849,377L856,372L858,373L852,383L852,390L846,396L847,405L840,407L841,414L835,419L831,428L831,432L826,433L818,432L815,435L814,441L810,444L806,441L802,432L792,430L783,422L777,416L779,413L745,396L738,385L744,369L753,361L761,361L765,352L770,346L775,329L781,323L791,315L807,324Z"},{"n":"Kocaeli","d":"M419,138L426,140L429,144L429,148L424,152L420,162L428,171L429,181L428,183L421,187L422,195L415,211L407,212L394,218L382,218L369,213L351,221L338,221L336,220L337,205L345,197L345,200L344,200L349,204L374,199L384,201L386,200L386,195L371,197L366,193L354,192L350,194L342,192L329,195L327,188L319,189L319,188L323,186L321,186L320,184L322,185L327,182L328,178L335,175L336,168L341,164L343,160L358,163L368,158L380,154L381,151L379,146L407,147L411,146L411,144L414,144L414,141L417,141L419,138ZM418,137L418,137L417,137L417,137L418,137Z"},{"n":"Konya","d":"M709,389L723,413L722,444L732,463L722,476L716,500L710,513L710,518L722,544L727,551L735,553L763,549L792,542L799,543L816,562L829,582L829,589L823,600L822,611L822,613L826,614L832,620L835,628L833,631L817,640L816,642L804,648L794,640L778,636L775,630L768,622L757,594L750,594L733,603L726,613L724,620L722,623L715,623L706,613L698,613L692,621L682,622L676,626L673,636L676,643L671,644L664,641L656,644L655,652L651,661L644,668L644,672L649,677L668,682L662,689L648,698L634,702L629,692L617,689L611,670L573,634L562,629L535,627L527,624L522,617L525,610L526,601L534,572L535,563L532,557L532,548L537,541L549,536L551,531L548,526L515,498L514,492L515,490L557,464L550,459L548,452L551,441L560,423L559,406L565,408L571,405L575,396L577,395L586,404L599,414L617,409L635,418L643,411L657,413L661,407L670,398L676,398L683,401L688,397L692,390L698,390L705,382L709,389Z"},{"n":"Kütahya","d":"M349,305L360,303L362,306L361,313L365,324L387,331L404,328L410,329L406,339L423,356L423,371L433,381L437,391L436,395L430,402L418,407L409,430L402,442L384,453L382,454L381,444L379,436L362,431L352,433L344,438L324,445L317,451L303,450L298,452L297,436L295,434L293,423L290,416L283,408L264,402L261,397L261,388L274,382L283,371L288,352L288,348L291,343L296,347L303,349L317,347L318,344L320,330L327,319L334,303L338,301L349,305Z"},{"n":"Manisa","d":"M165,374L176,372L184,374L186,372L188,376L185,383L186,388L194,389L197,391L202,396L207,410L211,412L242,402L257,395L261,397L265,403L280,407L286,411L293,422L298,439L298,452L282,463L279,471L278,482L280,494L277,499L286,510L275,516L273,526L267,531L263,529L251,530L248,527L243,512L239,507L218,502L212,498L210,494L208,493L196,493L182,502L179,500L171,487L153,482L143,473L131,470L125,472L121,450L110,445L115,431L134,427L136,424L141,422L148,415L147,403L144,396L143,380L138,369L149,365L158,372L165,374Z"},{"n":"Mersin","d":"M738,781L739,782L738,782L738,781L738,781ZM754,777L755,777L755,777L754,777L754,777ZM763,772L762,774L760,774L761,773L763,772ZM767,763L768,763L767,764L767,763L767,763ZM874,654L876,661L882,665L888,674L889,692L886,699L877,702L873,705L868,698L859,695L848,695L839,700L838,703L831,707L826,713L812,723L801,738L796,740L795,743L792,745L791,757L789,760L784,759L782,762L784,761L784,761L781,768L778,760L772,757L768,761L769,762L766,762L766,767L755,775L754,777L755,779L754,780L752,779L753,777L751,777L751,773L750,773L744,775L741,781L733,777L725,781L721,777L715,781L701,780L699,781L694,788L691,785L681,784L673,788L667,795L655,792L644,784L647,779L650,768L652,761L651,748L653,741L671,742L692,738L707,731L709,726L708,723L696,717L690,711L683,695L698,689L719,674L725,670L738,670L747,665L753,665L759,667L768,664L783,655L798,652L816,642L817,640L832,631L835,628L834,626L843,626L854,620L861,620L874,654Z"},{"n":"Muğla","d":"M300,728L300,729L300,729L300,729L300,728ZM301,727L302,727L300,727L301,727L301,727ZM200,726L200,727L200,727L199,727L200,726ZM200,726L200,726L200,726L200,726L200,726ZM209,721L209,722L208,721L208,721L209,721ZM202,719L202,719L201,719L202,719L202,719ZM201,718L201,718L201,718L201,718L201,718ZM271,717L271,718L271,718L271,718L271,717ZM201,715L202,715L202,715L201,715L201,715ZM305,714L304,715L304,715L304,714L305,714ZM148,713L148,713L148,714L148,714L148,713ZM299,713L299,713L298,715L298,713L299,713ZM197,712L197,713L197,713L197,712L197,712ZM284,712L285,713L285,715L283,713L284,712ZM200,712L201,714L200,715L199,714L200,712ZM297,712L298,712L298,713L297,712L297,712ZM200,712L200,712L200,712L200,712L200,712ZM286,711L288,712L286,714L285,712L286,711ZM200,711L200,711L201,711L201,711L200,711ZM265,709L265,709L264,709L264,709L265,709ZM288,709L288,709L287,709L287,709L288,709ZM295,709L295,709L295,709L295,709L295,709ZM287,708L287,709L287,709L287,709L287,708ZM195,708L195,708L195,708L195,708L195,708ZM288,707L288,708L287,709L288,708L288,707ZM196,707L196,707L196,708L196,707L196,707ZM288,707L288,707L287,708L287,707L288,707ZM220,707L220,707L220,707L220,707L220,707ZM196,706L197,706L197,707L196,706L196,706ZM199,705L199,706L198,707L198,706L199,705ZM201,704L202,704L202,704L203,704L202,705L201,705L201,704ZM288,704L289,705L288,706L288,705L288,704ZM138,703L139,704L139,704L138,703L138,703ZM192,702L193,702L193,702L192,702L192,702ZM176,702L176,702L176,702L176,702L176,702ZM173,702L173,702L172,702L173,702L173,702ZM174,701L174,702L174,702L174,702L174,701ZM177,701L177,701L177,701L177,701L177,701ZM202,701L202,701L202,701L202,701L202,701ZM199,701L200,701L200,701L199,701L199,701ZM208,701L209,701L209,701L208,701L208,701ZM144,700L144,700L144,700L144,700L144,700ZM143,699L144,699L144,700L143,699L143,699ZM239,699L239,699L238,700L239,699L239,699ZM255,696L255,696L254,696L255,696L255,696ZM221,695L222,696L220,695L221,695L221,695ZM224,693L224,693L223,693L223,693L224,693ZM240,688L240,688L240,688L240,688L240,688ZM199,687L199,687L198,687L198,687L199,687ZM200,687L200,687L199,687L199,687L200,687ZM200,686L201,686L201,686L200,687L200,686ZM199,685L200,685L199,685L199,685L199,685ZM211,678L212,679L211,679L211,679L211,678ZM211,677L211,677L211,678L211,678L211,677ZM128,677L128,677L128,677L128,677L128,677ZM216,675L216,676L215,676L215,675L216,675ZM155,673L155,673L155,673L155,673L155,673ZM162,673L162,673L162,673L162,673L162,673ZM156,673L157,674L157,675L156,674L156,673ZM121,672L121,672L121,673L120,673L121,672ZM117,671L118,671L118,672L117,671L117,671ZM216,671L217,672L216,672L216,671L216,671ZM140,671L145,673L146,675L145,676L142,674L140,671ZM217,671L217,671L216,671L216,671L217,671ZM136,670L136,671L136,672L135,671L136,670ZM220,670L220,670L219,670L219,670L220,670ZM116,670L116,670L116,670L116,670L116,670ZM133,669L134,670L133,670L133,669L133,669ZM120,669L120,669L118,671L118,671L120,669ZM118,664L118,665L117,664L118,664L118,664ZM119,659L119,660L118,660L118,659L119,659ZM121,659L122,659L122,659L121,659L121,659ZM145,655L144,656L144,656L144,655L145,655ZM145,654L145,655L145,655L145,654L145,654ZM123,654L123,654L123,654L123,654L123,654ZM137,653L136,653L136,653L136,653L137,653ZM150,650L150,653L146,653L147,651L150,650ZM134,648L135,649L135,650L134,650L134,648ZM133,648L133,648L133,648L133,649L133,648ZM149,646L149,646L149,646L149,646L149,646ZM152,645L152,645L152,645L152,645L152,645ZM152,638L153,639L153,640L152,639L152,638ZM153,638L153,638L153,638L153,638L153,638ZM134,635L134,635L134,635L134,634L134,635ZM243,608L256,610L256,621L269,626L273,640L287,644L297,652L300,657L300,661L302,664L302,672L313,685L320,685L326,676L327,665L332,661L334,667L333,677L338,675L344,667L348,667L355,671L360,679L360,686L353,698L350,719L326,742L326,746L323,757L320,759L316,755L310,754L308,751L308,749L304,748L304,746L307,744L306,743L307,743L306,739L304,737L306,734L306,728L305,727L304,728L303,726L299,726L299,729L295,728L299,726L296,723L298,719L302,719L302,715L304,716L303,719L305,718L306,715L304,712L299,711L297,707L295,708L296,707L294,707L291,705L291,706L287,701L287,704L284,707L285,708L281,709L281,712L280,713L281,714L279,716L281,717L282,715L285,716L281,718L282,721L279,723L277,718L280,716L278,716L276,714L274,715L275,712L274,710L267,707L262,710L262,708L260,706L258,708L257,708L257,705L256,704L258,702L256,701L258,698L254,694L250,692L250,694L248,695L249,698L244,696L245,694L241,694L240,690L242,688L241,686L239,689L236,689L236,687L233,690L234,691L238,691L235,698L227,694L226,695L227,696L224,697L222,694L227,694L227,692L223,689L222,690L219,695L221,697L220,699L222,700L222,703L225,702L226,705L224,706L222,704L218,708L218,710L212,710L206,722L205,723L203,722L199,726L197,724L198,726L194,727L193,724L194,723L192,721L202,720L205,715L203,713L203,714L203,716L202,717L203,714L201,714L203,712L201,712L200,709L200,712L198,713L192,710L196,708L200,708L202,706L206,705L204,706L206,708L207,705L209,705L204,703L207,699L209,702L209,701L208,695L204,696L204,699L201,701L201,698L197,701L192,701L189,703L188,702L186,701L186,703L185,703L184,701L182,703L178,700L170,700L165,705L166,707L164,708L165,714L154,710L153,712L148,711L145,715L144,713L138,713L137,711L134,710L135,710L134,707L137,708L139,707L140,702L142,703L144,701L145,702L158,700L161,694L166,698L174,697L179,694L199,697L202,696L202,693L202,692L196,691L199,691L199,691L196,689L202,686L200,685L201,684L197,682L200,682L198,680L206,678L210,679L210,681L212,680L212,682L213,682L213,678L212,677L216,677L216,674L217,673L215,673L217,672L217,671L221,672L220,670L222,668L228,666L228,664L212,667L206,666L207,669L206,669L205,667L194,666L191,668L189,667L181,668L176,671L175,670L175,671L165,670L162,671L160,673L154,671L153,674L149,671L145,672L140,666L138,668L137,667L135,671L136,667L130,669L131,671L127,674L128,676L124,675L123,667L120,663L121,660L127,656L123,656L123,654L124,655L125,653L129,656L130,650L132,652L132,654L134,651L136,652L135,654L136,655L140,654L144,660L151,654L155,653L154,653L153,654L152,653L153,651L151,651L152,647L150,646L152,646L154,644L156,646L154,648L157,646L158,647L158,647L154,643L158,635L153,635L151,638L152,640L150,639L150,642L148,642L147,640L149,639L149,635L143,638L147,631L145,627L144,630L141,632L138,632L136,629L136,625L139,622L140,622L139,617L142,607L146,599L149,598L167,608L185,613L211,610L218,599L225,596L243,608Z"},{"n":"Nevşehir","d":"M868,371L875,375L872,389L882,400L883,405L886,413L882,416L878,443L889,449L889,466L884,472L875,476L873,482L874,494L870,498L862,499L850,492L837,496L829,493L818,484L811,466L806,461L805,457L810,444L814,441L815,434L818,432L826,433L831,432L831,428L835,419L841,414L840,407L847,405L846,396L852,390L852,383L858,373L856,372L849,377L844,376L844,369L849,356L862,363L862,368L868,371Z"},{"n":"Niğde","d":"M836,496L850,492L861,499L865,500L873,496L875,489L880,490L888,508L894,511L906,512L910,516L913,523L913,540L908,549L905,551L903,554L904,564L902,568L887,582L870,581L866,583L864,587L868,597L869,604L862,612L861,620L853,621L842,626L834,626L830,619L825,614L822,613L822,606L829,589L829,582L810,555L797,542L799,537L803,535L811,537L817,527L823,523L823,513L820,507L820,497L823,488L836,496Z"},{"n":"Ordu","d":"M1095,146L1107,146L1107,149L1116,151L1131,162L1138,158L1145,147L1148,150L1156,150L1155,157L1158,161L1163,162L1165,166L1188,170L1177,196L1188,214L1192,227L1179,239L1167,241L1160,247L1152,249L1148,246L1138,221L1124,220L1112,212L1109,212L1107,207L1097,202L1086,204L1076,202L1072,197L1064,196L1048,188L1049,184L1061,180L1069,174L1078,159L1093,150L1093,146L1095,146Z"},{"n":"Osmaniye","d":"M1013,626L1028,624L1038,619L1044,629L1052,636L1033,657L1024,676L1014,676L1005,669L984,667L986,655L980,648L968,655L966,654L971,644L969,640L969,625L983,599L995,590L1010,588L1001,607L1005,624L1013,626Z"},{"n":"Sakarya","d":"M428,142L456,148L466,154L488,155L494,162L491,169L481,177L478,185L480,192L489,200L485,206L485,219L481,223L475,225L458,225L450,235L456,242L453,249L429,240L404,244L390,231L385,220L385,218L395,218L416,211L422,195L421,187L429,182L428,171L420,162L424,152L429,147L428,142ZM428,142L428,142L428,142L428,142Z"},{"n":"Samsun","d":"M1082,139L1082,139L1082,139L1082,139L1082,139ZM1081,139L1081,139L1081,139L1081,139L1081,139ZM1045,117L1045,116L1045,117L1045,117L1045,117ZM1045,117L1045,118L1045,118L1045,117L1045,116L1065,121L1078,129L1081,132L1080,137L1082,141L1093,146L1093,150L1078,158L1069,174L1061,180L1049,184L1049,180L1045,177L1025,181L1017,176L1017,171L1004,167L1000,167L999,176L996,178L985,184L976,180L965,182L950,180L945,174L929,163L891,153L881,155L878,150L877,139L872,132L876,126L893,117L905,131L915,133L920,131L924,127L927,119L923,105L930,90L931,83L938,85L946,83L976,71L986,77L992,85L993,106L1004,120L1015,125L1014,125L1013,127L1018,130L1018,132L1024,134L1031,132L1036,128L1041,118L1045,117Z"},{"n":"Sinop","d":"M877,26L884,26L887,30L887,33L890,35L901,33L903,36L896,35L892,42L891,48L895,56L903,63L901,64L903,67L908,71L909,74L923,78L931,83L930,90L923,105L927,119L922,130L915,133L905,131L893,117L876,126L867,140L835,129L831,126L830,96L840,90L843,84L843,80L833,73L811,71L811,63L806,54L807,44L815,45L832,41L834,43L845,45L863,44L873,35L877,29L877,26Z"},{"n":"Sivas","d":"M1198,248L1201,265L1207,271L1221,279L1232,276L1252,285L1250,295L1247,296L1220,295L1217,298L1212,309L1214,313L1228,310L1231,313L1228,317L1220,318L1220,322L1217,323L1212,332L1211,350L1215,365L1215,394L1211,400L1203,401L1194,408L1171,410L1155,417L1136,416L1133,423L1133,427L1137,438L1135,446L1111,467L1084,471L1078,466L1071,464L1052,469L1055,459L1073,410L1070,404L1066,400L1057,395L1041,395L1025,401L1017,398L1011,401L986,401L977,394L969,383L962,380L965,375L978,364L987,354L987,350L996,332L992,330L993,323L987,318L985,310L977,304L979,298L992,298L1003,294L1010,296L1024,297L1040,292L1047,286L1050,280L1049,273L1056,263L1075,268L1086,263L1095,267L1121,272L1125,261L1133,256L1133,251L1136,247L1136,239L1142,234L1148,247L1154,249L1160,247L1167,241L1179,239L1192,227L1194,232L1198,248Z"},{"n":"Tekirdağ","d":"M211,91L214,92L216,95L214,97L219,101L211,133L205,138L202,145L208,157L197,160L195,163L195,166L192,167L193,169L184,169L180,165L173,163L148,168L143,178L143,184L132,194L128,202L116,212L101,216L101,202L102,196L100,190L95,190L85,196L81,197L77,197L72,189L72,177L77,165L73,160L73,155L76,152L87,147L92,140L92,134L88,127L88,121L93,123L110,120L124,121L135,125L144,136L149,136L152,135L161,120L164,113L164,107L170,102L174,100L183,101L194,96L211,91Z"},{"n":"Tokat","d":"M1049,180L1048,186L1049,189L1064,196L1072,197L1076,202L1086,204L1097,202L1107,207L1109,212L1112,212L1124,220L1138,221L1142,234L1136,239L1136,247L1133,251L1133,256L1125,261L1121,272L1095,267L1086,263L1075,268L1056,263L1049,273L1050,280L1046,289L1024,297L1010,296L1003,294L992,298L979,298L977,293L977,285L974,281L944,280L933,267L934,261L939,256L953,250L965,228L976,227L984,233L996,235L1012,225L1025,208L1027,200L1021,187L1024,181L1029,181L1041,177L1049,180Z"},{"n":"Uşak","d":"M382,446L382,454L380,462L370,480L368,487L360,491L358,500L352,510L351,520L347,519L336,511L316,519L304,516L286,510L277,499L280,495L279,477L279,471L282,463L296,452L303,450L317,451L324,445L360,431L379,436L382,446Z"},{"n":"Yalova","d":"M333,202L338,203L336,220L330,218L320,221L299,220L295,228L297,230L292,233L283,230L280,227L273,225L274,221L287,215L293,209L322,207L333,202Z"},{"n":"Yozgat","d":"M916,264L920,267L933,267L944,280L974,281L977,285L977,293L979,298L977,304L985,310L987,318L993,323L992,330L996,332L987,350L987,354L978,364L965,375L961,381L953,389L948,392L936,392L929,394L928,398L930,405L906,417L886,413L883,405L882,400L872,389L875,375L862,368L862,363L846,355L837,348L835,345L838,339L830,332L826,325L819,323L807,324L791,315L790,303L793,301L812,299L823,292L863,292L873,285L888,287L900,279L899,264L911,264L915,262L916,264Z"},{"n":"Zonguldak","d":"M590,93L592,98L618,126L623,134L618,135L601,145L597,155L597,162L533,157L523,147L530,138L530,130L531,131L531,130L529,127L529,124L551,116L564,109L564,107L567,107L578,98L590,93Z"}];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs={},parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+function h(html){const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstElementChild}
+function segBind(attr,fn){$$(`[data-${attr}]`).forEach(b=>b.addEventListener('click',()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));fn(b.dataset[attr])}))}
+function copyText(txt,toastEl,btn){
+  const ok=()=>{toastEl.textContent='Copied';setTimeout(()=>toastEl.textContent='',2000)};
+  try{navigator.clipboard.writeText(txt).then(ok,()=>fallback())}catch(e){fallback()}
+  function fallback(){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='width:100%;height:160px;margin-top:8px;font:12px var(--f-mono)';
+    toastEl.textContent='Select the text below and copy it:';toastEl.after(ta);ta.select()}
+}
+
+/* ---------- hero trail ---------- */
+(function(){
+  const s=$('#heroTrail');
+  for(let i=0;i<9;i++){
+    let d='';const y0=90+i*48;
+    for(let x=0;x<=1200;x+=20){const y=y0+Math.sin(x/170+i*.7)*26+Math.sin(x/61+i)*7;d+=(x?'L':'M')+x+','+y.toFixed(1)}
+    el('path',{d,fill:'none',stroke:'var(--contour)','stroke-width':i%4==0?1.4:.8,opacity:.45},s);
+  }
+  const p=el('path',{d:'M640,500 C700,430 640,380 720,340 S860,300 820,230 S940,170 1000,120 S1120,80 1180,40',fill:'none',stroke:'var(--blaze)','stroke-width':3,'stroke-dasharray':'2 9','stroke-linecap':'round',opacity:.85},s);
+  if(!reduce){const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;
+    p.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:2200,easing:'cubic-bezier(.3,.6,.2,1)',fill:'forwards'}).onfinish=()=>{p.style.strokeDasharray='2 9';p.style.strokeDashoffset=0}}
+})();
+
+/* ---------- group ---------- */
+const GROUPS={30:{c:6,l:3,s:4,b:17},25:{c:6,l:2,s:3,b:14}};
+(function(){const d=$('#dots');for(let i=0;i<30;i++)d.appendChild(h('<div class="dot"></div>'))})();
+function renderGroup(n){
+  const g=GROUPS[n],cls=[...Array(g.c).fill('c'),...Array(g.l).fill('l'),...Array(g.s).fill('s'),...Array(g.b).fill('b')];
+  $$('#dots .dot').forEach((d,i)=>{d.className='dot '+(cls[i]||'b off')});
+  const menUnits=Math.ceil((g.l+g.b)/4);
+  $('#unitsTbl').innerHTML=`<thead><tr><th>Group</th><th class="n">People</th><th>Sleeping</th></tr></thead><tbody>
+  <tr><td>Missionary couples</td><td class="n">${g.c}</td><td>3 double rooms or tents</td></tr>
+  <tr><td>Leaders &amp; speakers (men)</td><td class="n">${g.l}</td><td>with the brothers</td></tr>
+  <tr><td>YSA sisters</td><td class="n">${g.s}</td><td>1 unit of 4 beds</td></tr>
+  <tr><td>YSA brothers</td><td class="n">${g.b}</td><td>${menUnits} units of 4 (with leaders)</td></tr>
+  <tr><td><b>Total</b></td><td class="n"><b>${n}</b></td><td><b>about ${menUnits+4} units</b></td></tr></tbody>`;
+}
+segBind('hc',v=>renderGroup(+v));renderGroup(30);
+
+/* ---------- travel map ---------- */
+const OV={lon0:26,lat1:42.3,k:Math.cos(39.2*Math.PI/180),s:126.51127547};
+const ov=(lon,lat)=>[(lon-OV.lon0)*OV.k*OV.s,(OV.lat1-lat)*OV.s];
+const CITIES=[
+  {n:'Istanbul',ll:[28.978,41.008],A:'about 3 h',B:'about 2 h',c:'B',dx:-10,dy:-12,an:'end'},
+  {n:'Bolu',ll:[31.606,40.735],A:'about 3.5–4 h',B:'about 1.5–2 h',c:'B',dx:10,dy:-10},
+  {n:'Ankara',ll:[32.86,39.933],A:'about 5 h',B:'about 3 h',c:'B',dx:10,dy:-8},
+  {n:'Adana',ll:[35.32,37.0],A:'about 10 h',B:'about 9 h',c:'B',dx:-10,dy:-12,an:'end'},
+  {n:'Izmir',ll:[27.143,38.423],A:'about 3.5 h',B:'about 6 h',c:'A',dx:10,dy:18},
+  {n:'Isparta',ll:[30.556,37.764],A:'about 5.5 h',B:'about 7 h',c:'A',dx:10,dy:-8},
+  {n:'Antalya',ll:[30.713,36.897],A:'about 7 h',B:'about 8 h',c:'A',dx:10,dy:16}];
+const OPTS={A:{n:'Bursa',ll:[29.06,40.183]},B:{n:'Sapanca',ll:[30.268,40.692]}};
+let trSel='B';
+function renderTravel(){
+  const s=$('#trMap');s.innerHTML='';
+  el('rect',{x:0,y:0,width:1000,height:810,class:'sea'},s);
+  PROV.forEach(p=>el('path',{d:p.d,class:'prov'+(p.n==='Bursa'?' hlA':p.n==='Sakarya'?' hlB':'')},s));
+  const g=el('g',{},s);
+  CITIES.forEach((c,i)=>{
+    const [x1,y1]=ov(...c.ll),[x2,y2]=ov(...OPTS[trSel].ll);
+    const mx=(x1+x2)/2,my=(y1+y2)/2-Math.hypot(x2-x1,y2-y1)*.12;
+    const line=el('path',{d:`M${x1},${y1} Q${mx},${my} ${x2},${y2}`,class:'tline',stroke:`var(--${trSel})`,opacity:c.c===trSel?1:.45,'stroke-dasharray':c.c===trSel?'':'5 5'},g);
+    if(!reduce&&c.c===trSel){const L=line.getTotalLength();line.animate([{strokeDasharray:`0 ${L}`},{strokeDasharray:`${L} 0`}],{duration:900,delay:i*90,easing:'ease-out',fill:'backwards'})}
+    if(Math.hypot(x2-x1,y2-y1)>130){const t=el('text',{x:mx,y:my-4,'text-anchor':'middle',class:'tlabel',fill:`var(--${trSel})`},g);t.textContent=c[trSel].replace('about ','')}
+  });
+  CITIES.forEach(c=>{const [x,y]=ov(...c.ll);const gg=el('g',{class:'city'},s);el('circle',{cx:x,cy:y,r:5},gg);
+    const t=el('text',{x:x+c.dx,y:y+c.dy,'text-anchor':c.an||'start'},gg);t.textContent=c.n});
+  ['A','B'].forEach(k=>{const [x,y]=ov(...OPTS[k].ll);const gg=el('g',{},s);
+    el('rect',{x:x-11,y:y-11,width:22,height:22,rx:4,fill:`var(--${k})`,stroke:'var(--card)','stroke-width':2.5},gg);
+    const t=el('text',{x,y:y+6,'text-anchor':'middle','font-family':'var(--f-display)','font-weight':700,'font-size':17,fill:'var(--paper)'},gg);t.textContent=k;
+    const t2=el('text',{x:k==='A'?x-16:x+16,y:y+(k==='A'?22:-14),'text-anchor':k==='A'?'end':'start',class:'maplabel','font-weight':600,'font-size':21},gg);t2.textContent=OPTS[k].n});
+  $('#trTbl').innerHTML=`<thead><tr><th>From</th><th class="n">To A · Bursa</th><th class="n">To B · Sapanca</th></tr></thead><tbody>${
+    CITIES.map(c=>`<tr><td>${c.n}</td><td class="n mono ${c.c==='A'?'closer':''}" style="${c.c==='A'?'color:var(--A)':''}">${c.A}</td><td class="n mono ${c.c==='B'?'closer':''}" style="${c.c==='B'?'color:var(--B)':''}">${c.B}</td></tr>`).join('')}
+    <tr><td colspan="3" class="note">Bold = closer. Flying to Istanbul plus a shared shuttle works for either option.</td></tr></tbody>`;
+}
+segBind('tr',v=>{trSel=v;renderTravel()});renderTravel();
+
+/* ---------- scores ---------- */
+(function(){
+  const rows=[['Travel for most people',2,5],['Hiking variety',5,3],['Meeting room found',4,2],['Number of stays',3,5],['May–June weather',2,4],['Gear transport from Bolu',2,5]];
+  const box=$('#scores');
+  box.appendChild(h(`<div class="score"><span class="eyebrow">My rough read (1–5)</span><span class="eyebrow" style="text-align:right">A · Bursa</span><span class="eyebrow">B · Sakarya</span></div>`));
+  rows.forEach(([l,a,b])=>box.appendChild(h(`<div class="score"><span class="lbl">${l}</span><span class="side sa" style="width:${a*20}%">${a}</span><span class="side sb" style="width:${b*20}%">${b}</span></div>`)));
+})();
+
+/* ---------- trail maps ---------- */
+const TA={
+ uludag:{n:'Uludağ',r:4.2,c:237,u:'https://www.tripadvisor.com/Attraction_Review-g297976-d2533697-Reviews-Uludag-Bursa_Province.html'},
+ cumalikizik:{n:'Cumalıkızık',r:4.0,c:1241,u:'https://www.tripadvisor.com/Attraction_Review-g297977-d3831109-Reviews-CumalIkIzIk-Bursa.html'},
+ iznik:{n:'İznik',r:4.3,c:250,u:'https://www.tripadvisor.com/Attraction_Review-g297977-d553560-Reviews-Iznik-Bursa.html'},
+ sapanca:{n:'Sapanca Lake',r:4.1,c:495,u:'https://www.tripadvisor.com/Attraction_Review-g612463-d4992851-Reviews-Sapanca_Lake-Sapanca_Sakarya_Province.html'},
+ ilormani:{n:'Sakarya İl Ormanı Tabiat Parkı',r:4.3,c:39,u:'https://www.tripadvisor.com/Attraction_Review-g612463-d7615475-Reviews-Sakarya_Il_Ormani_Tabiat_Parki-Sapanca_Sakarya_Province.html'},
+ dogancay:{n:'Doğançay Şelalesi',r:3.8,c:28,u:'https://www.tripadvisor.com/Attraction_Review-g7719378-d10744488-Reviews-Dogancay_Selalesi-Sakarya_Sakarya_Province.html'},
+ acarlar:{n:'Acarlar Floodplain Forest',r:4.1,c:166,u:'https://www.tripadvisor.com/Attraction_Review-g3237756-d4739029-Reviews-Acarlar_Floodplain_Forest-Karasu_Sakarya_Province.html'}};
+const VIEWS={
+ uludag:{tab:'Bursa · Uludağ',sub:'Option A · mountain trails',opt:'A',b:[28.92,40.06,29.24,40.20],grid:{nx:36,ny:26,b:[29.08,40.065,29.24,40.18],fade:1},step:100,ta:['uludag','cumalikizik'],
+  lakes:[],
+  cable:[[29.0833,40.1712],[29.0876,40.1515],[29.1062,40.137],[29.1415,40.110]],
+  pts:[
+   {n:'Teferrüç (cable car, Bursa)',ll:[29.0833,40.1712],dx:8,dy:-8},
+   {n:'Bursa',ll:[29.06,40.193],dx:-8,dy:-8,an:'end'},
+   {n:'Cumalıkızık',ll:[29.1727,40.1752],dx:-8,dy:-8,an:'end',ta:'cumalikizik'},
+   {n:'Kadıyayla',ll:[29.0883,40.1506],dx:8,dy:4},
+   {n:'Bakacak',ll:[29.1364,40.1415],dx:8,dy:-6},
+   {n:'Sarıalan',ll:[29.1066,40.1366],e:'1,630 m',dx:-8,dy:16,an:'end'},
+   {n:'Çobankaya',ll:[29.1406,40.1190],e:'1,740 m',dx:10,dy:4},
+   {n:'Kirazlıyayla',ll:[29.0899,40.1138],dx:8,dy:4},
+   {n:'Hotels zone',ll:[29.1415,40.1100],e:'1,790 m',dx:-10,dy:-4,an:'end'},
+   {n:'Kuşaklıkaya',ll:[29.1424,40.0956],e:'1,950 m',dx:-10,dy:12,an:'end'},
+   {n:'Old tungsten mine',ll:[29.1761,40.0981],dx:8,dy:-8},
+   {n:'Saklıgöl',ll:[29.2058,40.0865],e:'2,220 m',dx:-8,dy:-10,an:'end',lake:1},
+   {n:'Kilimli · Kara · Aynalı lakes',ll:[29.2287,40.0738],dx:-6,dy:20,an:'end',lake:1},
+   {n:'Uludağ summit',ll:[29.2220,40.0705],e:'2,543 m',peak:1,dx:-10,dy:16,an:'end'}]},
+ iznik:{tab:'Bursa · İznik',sub:'Option A · lake & old Nicaea',opt:'A',b:[29.575,40.37,29.74,40.45],grid:{nx:32,ny:20},step:50,ta:['iznik'],
+  lakes:[{n:'İznik Gölü',lab:[29.62,40.42],p:[[29.3359,40.4599],[29.3377,40.4461],[29.3431,40.4321],[29.3532,40.4199],[29.3613,40.4152],[29.379,40.4131],[29.3916,40.4179],[29.4052,40.419],[29.4128,40.4243],[29.4243,40.4181],[29.4291,40.4175],[29.438,40.4056],[29.4555,40.3949],[29.4617,40.3948],[29.4672,40.3918],[29.4757,40.3931],[29.4872,40.3903],[29.4927,40.3916],[29.4965,40.3891],[29.513,40.3867],[29.5217,40.3893],[29.5302,40.3854],[29.5374,40.3865],[29.5439,40.384],[29.5601,40.3856],[29.57,40.382],[29.5836,40.3853],[29.591,40.3826],[29.6052,40.3838],[29.6209,40.3896],[29.6368,40.3855],[29.6546,40.3907],[29.6612,40.3963],[29.6768,40.3931],[29.6816,40.3966],[29.691,40.3984],[29.6955,40.4048],[29.7015,40.4072],[29.7075,40.4198],[29.7073,40.4229],[29.7163,40.4362],[29.7147,40.4455],[29.7108,40.4487],[29.703,40.4495],[29.6949,40.4445],[29.6773,40.4477],[29.6761,40.4522],[29.6635,40.4584],[29.6624,40.4621],[29.66,40.4634],[29.6618,40.4662],[29.6607,40.4692],[29.6529,40.4711],[29.651,40.4728],[29.6523,40.4742],[29.647,40.4758],[29.6461,40.4803],[29.642,40.4829],[29.6429,40.4844],[29.6319,40.4916],[29.6214,40.4931],[29.6096,40.4912],[29.5912,40.4825],[29.5835,40.482],[29.5802,40.4799],[29.5802,40.4814],[29.5761,40.4784],[29.5651,40.4829],[29.5576,40.4784],[29.535,40.4834],[29.5093,40.4832],[29.4941,40.4889],[29.4858,40.4899],[29.4775,40.4951],[29.4683,40.4957],[29.4628,40.4928],[29.4488,40.498],[29.4446,40.4973],[29.4079,40.5039],[29.4035,40.502],[29.3927,40.5025],[29.3775,40.4961],[29.3703,40.487],[29.3448,40.4791],[29.3373,40.4715],[29.3359,40.4599]]}],
+  walls:[[[29.7197,40.4363],[29.718,40.4353],[29.7159,40.4338]],[[29.7233,40.4233],[29.7199,40.4235]],[[29.7289,40.4283],[29.7259,40.4232],[29.7256,40.4231],[29.7237,40.4233]],[[29.7222,40.4351],[29.7213,40.4357],[29.7211,40.4362]],[[29.7223,40.4346],[29.7241,40.4336],[29.7255,40.4325]],[[29.721,40.4365],[29.7201,40.4365]],[[29.727,40.4313],[29.7292,40.429],[29.729,40.4285]],[[29.7189,40.4231],[29.7172,40.4228],[29.7163,40.4229],[29.7164,40.4234]],[[29.7164,40.4237],[29.7167,40.4236],[29.7169,40.4251],[29.7168,40.4254],[29.7139,40.4256]],[[29.7201,40.4366],[29.7205,40.4368]],[[29.7206,40.4368],[29.7211,40.4366],[29.7214,40.4359],[29.7222,40.4354],[29.7224,40.435]],[[29.7139,40.4258],[29.7136,40.4264],[29.713,40.4272],[29.7133,40.428]],[[29.7134,40.4287],[29.7138,40.4297]],[[29.7289,40.4295],[29.7295,40.429],[29.7292,40.4284]],[[29.7198,40.4365],[29.7168,40.4347]]],
+  cable:null,
+  pts:[{n:'İznik (Nicaea)',ll:[29.7202,40.4292],dx:-40,dy:-34,an:'end',ta:'iznik'},{n:'Göllüce',ll:[29.5908,40.3727],dx:10,dy:-8},
+   {n:'İstanbul Gate',ll:[29.7206,40.4367],dx:8,dy:-6,small:1},{n:'Lefke Gate',ll:[29.7291,40.4288],dx:8,dy:4,small:1},{n:'Yenişehir Gate',ll:[29.7192,40.4235],dx:8,dy:12,small:1},{n:'Göl Gate',ll:[29.7138,40.4298],dx:-8,dy:4,an:'end',small:1}]},
+ sapanca:{tab:'Sakarya · Sapanca',sub:'Option B · lake, plateau & waterfalls',opt:'B',b:[30.13,40.595,30.38,40.745],grid:{nx:36,ny:26},step:100,ta:['sapanca','ilormani','dogancay'],
+  lakes:[{n:'Sapanca Gölü',lab:[30.235,40.721],p:[[30.1487,40.7145],[30.1523,40.7117],[30.1701,40.712],[30.1747,40.7137],[30.1813,40.7089],[30.1947,40.7048],[30.2066,40.7058],[30.2236,40.7021],[30.25,40.7032],[30.254,40.7007],[30.2652,40.7004],[30.2745,40.6934],[30.282,40.6932],[30.2904,40.6978],[30.3044,40.6998],[30.3088,40.7021],[30.3113,40.706],[30.3174,40.7068],[30.3242,40.7144],[30.3248,40.7276],[30.3306,40.7294],[30.3315,40.7319],[30.314,40.7356],[30.308,40.7389],[30.2951,40.736],[30.2941,40.7378],[30.2862,40.7367],[30.2855,40.7392],[30.2806,40.739],[30.2802,40.7409],[30.2773,40.7414],[30.2725,40.7403],[30.2678,40.7358],[30.2628,40.7376],[30.2527,40.735],[30.2399,40.7348],[30.2348,40.7326],[30.2332,40.728],[30.2056,40.7319],[30.197,40.7265],[30.1829,40.7245],[30.1778,40.7211],[30.1607,40.7189],[30.1583,40.7162],[30.1581,40.7178],[30.1515,40.7175],[30.1491,40.716],[30.1505,40.7145]]}],
+  park:[[30.3136,40.7022],[30.3179,40.6984],[30.3229,40.702],[30.3239,40.7052],[30.3274,40.7062],[30.3402,40.7013],[30.3487,40.7013],[30.3525,40.7042],[30.3515,40.7068],[30.3474,40.707],[30.3487,40.7088],[30.3475,40.7095],[30.3329,40.7083],[30.3263,40.7104],[30.3224,40.71]],
+  cable:null,
+  pts:[
+   {n:'Sapanca',ll:[30.2674,40.6916],dx:-8,dy:16,an:'end',ta:'sapanca'},
+   {n:'Arifiye',ll:[30.3621,40.7145],dx:-6,dy:-10,an:'end'},
+   {n:'Maşukiye',ll:[30.1398,40.7019],dx:8,dy:14},
+   {n:'Yanık',ll:[30.1811,40.6926],dx:8,dy:14},
+   {n:'Kırkpınar',ll:[30.2232,40.6932],dx:6,dy:14},
+   {n:'Uzunkum',ll:[30.3079,40.6999],dx:-4,dy:16,an:'end'},
+   {n:'Muradiye',ll:[30.2432,40.6686],dx:-8,dy:-6,an:'end'},
+   {n:'Maşukiye Şelalesi',ll:[30.2162,40.6621],dx:-8,dy:-6,an:'end',fall:1},
+   {n:'İstanbuldere',ll:[30.2310,40.6452],e:'≈320 m',dx:8,dy:4},
+   {n:'Soğucak fire tower',ll:[30.2103,40.6266],dx:8,dy:4,small:1},
+   {n:'Soğucak Yaylası',ll:[30.1760,40.6105],e:'≈1,110 m',dx:10,dy:6},
+   {n:'Doğançay Şelalesi',ll:[30.3679,40.6034],dx:-8,dy:-8,an:'end',fall:1,ta:'dogancay'}],
+  offmap:{at:[30.13,40.745],an:'start',text:'↑ Acarlar Longozu, 47 km north',ta:'acarlar'}}
+};
+const STAYS=[
+ {id:'nefes',o:'A',v:'uludag',ll:[28.9394,40.1314],n:'Nefes Dağyenice Doğada',where:'Dağyenice, Nilüfer · about 20 min from Bursa center',
+  types:'Bungalows, family bungalows, shell houses, glamping tents, tent area',meet:'yes',food:'Restaurant on site',
+  hike:'On-site trails (length not published). Uludağ trailheads are 41–45 km by road, about 55–64 min each way.',extra:'Canoe, adventure park, picnic pavilions',
+  contact:'0 224 503 44 64 · WhatsApp +90 549 120 50 80',unk:'Capacity and prices not posted',url:'https://www.nefesdagyenice.com/'},
+ {id:'muhit',o:'A',v:'iznik',ll:[29.5932,40.3825],n:'Doğa Muhit Camping',where:'Göllüce, south shore of İznik Lake · about 1 h from Bursa',
+  types:'Bungalows, tiny house, tent camping',meet:'no',food:'Restaurant on site, or cook yourself',
+  hike:'Private trekking trail (no length or map published). İznik walls loop: 14.6 km by road, about 13 min.',extra:'On Google Maps the pin at this spot is named “İznik Doğa Camping Cafe Restoran”; confirm it is the same place',
+  contact:'No phone published',unk:'Capacity and prices not stated',url:'https://turkeyoutdoor.org/bursa-iznik-golu-doga-muhit-camping-kamp-alani-tanitimi/'},
+ {id:'seyir',o:'A',v:'iznik',ll:[29.6912,40.3984],n:'İznik Seyir Kamp',where:'South-east shore of İznik Lake · 5.6 km by road from the old town',
+  types:'Large glamping tents or own tents (no bungalows)',meet:'no',food:'Café and buffet, shared kitchen',
+  hike:'City walls loop starts 5.6 km away by road, about 6 min.',extra:'Separate men’s and women’s toilets and showers; quiet from 23:00',
+  contact:'WhatsApp +90 542 184 31 16',unk:'Prepayment required; refund only if cancelled 10+ days ahead',url:'https://iznikseyirkamp.com/'},
+ {id:'ilormani',o:'B',v:'sapanca',lab:'l',ll:[30.3426,40.7044],n:'Sakarya İl Ormanı Tabiat Parkı',where:'Lakeside between Sapanca and Arifiye',
+  types:'10 wooden bungalows with bathroom and mini kitchen (no tents allowed)',meet:'no',food:'Restaurant, snack bar, market',
+  hike:'The lakeshore walk starts at the park’s west gate; İstanbuldere trailhead is 13.9 km by road, about 20 min.',extra:'2025: 3,500 TL weekday, 4,500 TL weekend per night · TripAdvisor 4.3 (39 reviews)',
+  contact:'0850 480 80 54 (reservation required)',unk:'Unclear if price is per bungalow',url:'https://www.eleman.net/is-rehberi/pratik-bilgiler/bungalov-ev-fiyatlari-sakarya-tabiat-parki-h15015'},
+ {id:'ruya',o:'B',v:'sapanca',lab:'l',ll:[30.2562,40.6689],n:'Rüya Sapanca',where:'Nailiye, 2.5 km south of Sapanca center',
+  types:'5 bungalows for 4, one villa for 8–12, villas for 6–8 · capacity 75',meet:'maybe',food:'Kitchens in units; no restaurant listed',
+  hike:'İstanbuldere trailhead 6.9 km by road (about 10 min); lakeshore walk 4.7 km (about 8 min).',extra:'Fireplaces; villa living room might host lessons',
+  contact:'0531 929 6899 · info@ruyasapanca.com',unk:'Prices not posted',url:'https://www.ruyasapanca.com/'},
+ {id:'green',o:'B',v:'sapanca',ll:[30.2782,40.6693],n:'Green Hill Glamping',where:'İlmiye, 2.5 km south-east of Sapanca center',
+  types:'Glamping tents and bungalows',meet:'no',food:'Restaurant and café service',
+  hike:'Lakeshore walk 3.9 km by road (about 6 min); İstanbuldere trailhead 8.5 km (about 14 min).',extra:'Pet-friendly',
+  contact:'Find via Kampyeri listing',unk:'Capacity, prices and group policy not stated',url:'https://kampyeri.org/blog/sapanca-kamp-alanlari-2026-en-yi-12-kamp-alani'}
+];
+const ACCESS={
+"nefes>cobankaya":{km:42.6,min:58,w:[[28.9388,40.132],[28.9451,40.1395],[28.9479,40.1478],[28.9536,40.153],[28.956,40.1564],[28.9575,40.1597],[28.9549,40.1628],[28.9565,40.1669],[28.9569,40.1717],[28.9627,40.1765],[28.9676,40.1785],[28.9728,40.1776],[28.9767,40.1814],[28.9777,40.1874],[28.9882,40.1939],[28.9996,40.1965],[29.0055,40.1912],[29.0098,40.1913],[29.0152,40.1875],[29.0168,40.1798],[29.015,40.1756],[29.0204,40.1808],[29.0245,40.1803],[29.0222,40.1794],[29.0225,40.1699],[29.0157,40.1616],[29.015,40.1578],[29.0192,40.1541],[29.0192,40.1507],[29.0167,40.1455],[29.0254,40.1394],[29.0228,40.1345],[29.0288,40.1341],[29.0337,40.1323],[29.0373,40.1321],[29.0418,40.1236],[29.0415,40.1202],[29.0467,40.1166],[29.0522,40.1159],[29.0579,40.1149],[29.0703,40.1137],[29.0765,40.1096],[29.0775,40.1127],[29.0821,40.1138],[29.0839,40.1169],[29.0874,40.113],[29.0913,40.1128],[29.0961,40.1144],[29.0954,40.1092],[29.0977,40.1079],[29.0999,40.1114],[29.1039,40.1119],[29.1052,40.1079],[29.1092,40.1086],[29.1138,40.1171],[29.1189,40.1187],[29.1181,40.1145],[29.1198,40.1134],[29.1198,40.1099],[29.1218,40.1067],[29.1241,40.1062],[29.1281,40.108],[29.1327,40.1041],[29.136,40.1053],[29.1371,40.107],[29.1398,40.1045],[29.1409,40.1047],[29.1432,40.1162],[29.1424,40.1194],[29.141,40.1195]]},
+"nefes>bakacak":{km:45.0,min:64,w:[[29.1405,40.1044],[29.1431,40.1165],[29.1403,40.1333],[29.1365,40.1413]],share:"nefes>cobankaya"},
+"nefes>hotels":{km:41.4,min:55,w:[[29.1372,40.107],[29.1403,40.1044],[29.1424,40.1099]],share:"nefes>cobankaya"},
+"seyir>golgate":{km:5.6,min:6,w:[[29.6914,40.3983],[29.6902,40.3976],[29.6927,40.396],[29.6946,40.3984],[29.7148,40.417],[29.7175,40.4185],[29.7184,40.4192],[29.7179,40.42],[29.7193,40.4215],[29.7198,40.4228],[29.7193,40.4248],[29.7199,40.4295],[29.7138,40.4298]]},
+"muhit>golgate":{km:14.6,min:13,w:[[29.5932,40.3824],[29.5995,40.3837],[29.6054,40.3835],[29.6091,40.3851],[29.6131,40.3859],[29.6211,40.3892],[29.6282,40.3864],[29.635,40.3852],[29.638,40.3853],[29.6507,40.3898],[29.6546,40.3903],[29.6612,40.3955],[29.6681,40.3944],[29.6752,40.3926],[29.6779,40.3933],[29.6817,40.3959],[29.6863,40.3969],[29.6902,40.3976]],share:"seyir>golgate"},
+"ilormani>istanbuldere":{km:13.9,min:20,w:[[30.3425,40.7045],[30.3398,40.7042],[30.3371,40.7059],[30.3303,40.7083],[30.3269,40.7078],[30.3237,40.7084],[30.3222,40.7069],[30.3202,40.7074],[30.3186,40.7047],[30.3107,40.7021],[30.3066,40.6996],[30.302,40.6978],[30.2976,40.6972],[30.2917,40.6971],[30.288,40.6955],[30.2837,40.6909],[30.28,40.6885],[30.2751,40.6899],[30.2685,40.6873],[30.2646,40.6886],[30.2576,40.6844],[30.2529,40.6806],[30.2481,40.6777],[30.2452,40.6702],[30.2422,40.6663],[30.2371,40.6529],[30.2335,40.6505],[30.2316,40.6474],[30.2306,40.6452]]},
+"ruya>istanbuldere":{km:6.9,min:10,w:[[30.2562,40.6689],[30.2536,40.6678],[30.2524,40.6693],[30.2511,40.6703],[30.2511,40.6716],[30.25,40.673],[30.2509,40.6743],[30.2501,40.6752],[30.2499,40.6756],[30.2513,40.6764],[30.2495,40.6772],[30.2486,40.6782],[30.2476,40.6767],[30.2452,40.6702],[30.2425,40.667],[30.2418,40.6641],[30.2393,40.6595],[30.238,40.6564],[30.2371,40.6529],[30.2335,40.6505],[30.2316,40.6474],[30.2306,40.6452]]},
+"green>istanbuldere":{km:8.5,min:14,w:[[30.2778,40.6695],[30.2789,40.6717],[30.278,40.6743],[30.2757,40.6754],[30.2767,40.6781],[30.2746,40.6803],[30.2695,40.6808],[30.2661,40.6848],[30.2596,40.684],[30.2582,40.6848],[30.2529,40.6806],[30.2481,40.6777],[30.2452,40.6702],[30.2426,40.6673],[30.2418,40.6641],[30.2393,40.6595],[30.238,40.6564],[30.2371,40.6529],[30.2335,40.6505],[30.2316,40.6474],[30.2306,40.6452]]},
+"ruya>ilgate":{km:7.8,min:12,w:[[30.2562,40.6689],[30.2589,40.6685],[30.2647,40.6694],[30.2659,40.6714],[30.2674,40.6711],[30.267,40.6723],[30.2691,40.6737],[30.2673,40.6741],[30.2667,40.6757],[30.2657,40.6781],[30.2706,40.6786],[30.2714,40.6791],[30.2711,40.6806],[30.2709,40.6843],[30.2718,40.6858],[30.2794,40.6884],[30.2837,40.6909],[30.2887,40.696],[30.2917,40.6971],[30.2976,40.6972],[30.3066,40.6996],[30.3107,40.7021],[30.3131,40.7022]]},
+"green>ilgate":{km:6.6,min:10,w:[[30.2778,40.6695],[30.2789,40.6717],[30.278,40.6743],[30.2757,40.6754],[30.2763,40.6792],[30.2746,40.6803],[30.2711,40.6805],[30.2709,40.6843],[30.2718,40.6858],[30.2794,40.6884],[30.2837,40.6909],[30.288,40.6955],[30.2925,40.6972],[30.2976,40.6972],[30.3066,40.6996],[30.3107,40.7021],[30.3131,40.7022]]},
+"ilormani>ilgate":{km:3.5,min:8,w:[[30.3425,40.7045],[30.3398,40.7042],[30.3371,40.7059],[30.3326,40.7072],[30.3303,40.7083],[30.3269,40.7078],[30.3237,40.7084],[30.3222,40.7069],[30.3202,40.7074],[30.3186,40.7047],[30.315,40.7033],[30.3131,40.7022]]}};
+
+const TH={cobankaya:'Çobankaya camp area',bakacak:'Bakacak viewpoint',hotels:'Hotels zone',golgate:'Göl Gate, İznik',istanbuldere:'İstanbuldere village',sapshore:'Sapanca town shore',ilgate:'İl Ormanı park west gate'};
+/* Road distance (km) and drive time (min) from each stay to each trailhead · OSRM car routing on OpenStreetMap, no traffic */
+const DRIVE={
+ nefes:{cobankaya:[42.6,58],bakacak:[45.0,64],hotels:[41.4,55],golgate:[104.4,86]},
+ muhit:{cobankaya:[110.5,103],bakacak:[113.0,108],hotels:[109.3,100],golgate:[14.6,13]},
+ seyir:{cobankaya:[104.9,105],bakacak:[107.3,110],hotels:[103.7,102],golgate:[5.6,6]},
+ ilormani:{istanbuldere:[13.9,20],sapshore:[7.4,12],ilgate:[3.5,8]},
+ ruya:{istanbuldere:[6.9,10],sapshore:[4.7,8],ilgate:[7.8,12]},
+ green:{istanbuldere:[8.5,14],sapshore:[3.9,6],ilgate:[6.6,10]}};
+const OSMSRC='OpenStreetMap paths + SRTM elevation, checked on satellite';
+const ROUTES=[
+ {id:'r2',v:'uludag',th:'cobankaya',n:'Çobankaya – Sarıalan forest trail',d:'easy',km:3.97,up:60,dn:175,shape:'One way, gently downhill',sat:1,rec:'AllTrails describes it as well-marked and gentle',src:'https://www.alltrails.com/parks/turkey/bursa/bursa-uludag-national-park',
+  from:'Çobankaya camp area (1,743 m)',to:'Sarıalan (1,627 m)',hi:'1,743 m',stay:'Nefes Dağyenice',
+  notes:['2.6 km of it is footpath through Uludağ fir forest; the rest is forest track and road','Easy enough for the whole group, good for an outdoor lesson stop','National park entrance fee applies'],
+  prof:[1743,1742,1740,1737,1733,1726,1715,1706,1696,1685,1668,1654,1648,1650,1657,1665,1670,1670,1673,1673,1679,1680,1685,1685,1687,1687,1689,1689,1687,1686,1684,1682,1676,1672,1667,1663,1655,1647,1639,1634,1630,1628,1625,1625,1623,1622,1618,1617,1620,1624,1630,1635,1635,1635,1631,1630,1629,1630,1630,1628],
+  w:[[29.1413,40.1194],[29.1397,40.12],[29.1385,40.1208],[29.1371,40.1213],[29.1365,40.1214],[29.1357,40.1208],[29.1334,40.1213],[29.1327,40.1218],[29.132,40.1218],[29.1302,40.1234],[29.1292,40.1237],[29.1286,40.1241],[29.1276,40.1255],[29.1257,40.1271],[29.1245,40.1277],[29.1221,40.128],[29.121,40.1284],[29.1204,40.1289],[29.1183,40.1295],[29.1172,40.1292],[29.1171,40.1294],[29.116,40.1295],[29.1135,40.1316],[29.1136,40.1321],[29.1107,40.1337],[29.108,40.1343],[29.1082,40.1345],[29.1081,40.1357],[29.107,40.1362],[29.1063,40.1369]]},
+ {id:'r3',v:'uludag',th:'bakacak',n:'Bakacak – Sarıalan',d:'easy',km:6.73,up:77,dn:176,shape:'One way',sat:1,rec:'Hikers on Wikiloc recorded 6.0 km, +148 m',src:'https://www.wikiloc.com/trails/hiking/turkey/bursa',
+  from:'Bakacak viewpoint (1,726 m)',to:'Sarıalan (1,627 m)',hi:'1,742 m',stay:'Nefes Dağyenice',
+  notes:['Joins the Çobankaya trail for its second half','No fountains on the route: carry water','Path and forest tractor road the whole way'],
+  prof:[1727,1725,1723,1720,1719,1717,1716,1716,1716,1715,1714,1712,1709,1707,1706,1708,1712,1717,1723,1728,1729,1731,1734,1739,1741,1740,1738,1730,1717,1695,1673,1658,1658,1666,1669,1672,1674,1680,1683,1687,1687,1687,1683,1678,1670,1659,1649,1636,1630,1626,1625,1622,1622,1624,1631,1635,1634,1631,1629,1628],
+  w:[[29.1365,40.1413],[29.1366,40.1406],[29.1375,40.141],[29.1381,40.138],[29.1381,40.1365],[29.1403,40.1333],[29.1402,40.1321],[29.1409,40.1307],[29.1409,40.1288],[29.1415,40.127],[29.1413,40.1241],[29.1424,40.1194],[29.1421,40.1192],[29.1405,40.1197],[29.1388,40.1207],[29.1371,40.1213],[29.1365,40.1214],[29.1357,40.1208],[29.1334,40.1213],[29.1327,40.1218],[29.132,40.1218],[29.1302,40.1234],[29.1292,40.1237],[29.1286,40.1241],[29.1276,40.1255],[29.1257,40.1271],[29.1245,40.1277],[29.1221,40.128],[29.121,40.1284],[29.1204,40.1289],[29.1183,40.1295],[29.1172,40.1292],[29.1171,40.1294],[29.116,40.1295],[29.1135,40.1316],[29.1136,40.1321],[29.1107,40.1337],[29.108,40.1343],[29.1082,40.1345],[29.1081,40.1357],[29.107,40.1362],[29.1063,40.1369]]},
+ {id:'r5',v:'uludag',th:'hotels',n:'Hotels zone – Kuşaklıkaya',d:'mod',km:3.74,up:207,dn:59,shape:'One way · 7.5 km out and back',sat:1,rec:'Hikers on Wikiloc recorded a 7.09 km loop, +282 m',src:'https://www.wikiloc.com/trails/hiking/turkey/bursa',
+  from:'Hotels zone (1,786 m)',to:'Kuşaklıkaya (1,947 m)',hi:'1,950 m',stay:'Nefes Dağyenice',
+  notes:['The recorded 7.09 km loop is close to this round trip','Over 1,900 m: wind chill can feel freezing even in June','Snow likely on the route in May','Follows ski-area tracks, so it is open and easy to navigate'],
+  prof:[1786,1788,1790,1792,1790,1790,1784,1781,1779,1783,1781,1779,1780,1788,1796,1805,1810,1815,1818,1822,1830,1837,1842,1846,1849,1853,1857,1865,1871,1877,1882,1885,1885,1885,1886,1889,1896,1902,1916,1920,1924,1921,1930,1939,1947,1948,1949,1947,1943,1939,1941,1942,1943,1937,1925,1918,1914,1915,1924,1934],
+  w:[[29.1415,40.1099],[29.1413,40.1098],[29.1414,40.1096],[29.1423,40.1095],[29.1423,40.109],[29.142,40.1075],[29.1412,40.1063],[29.1407,40.1045],[29.1403,40.1044],[29.1395,40.1046],[29.1379,40.1066],[29.1371,40.107],[29.136,40.1053],[29.1346,40.105],[29.1332,40.1042],[29.1325,40.1026],[29.1314,40.1023],[29.1313,40.1019],[29.1345,40.1021],[29.1349,40.1018],[29.1356,40.101],[29.136,40.1],[29.1361,40.0995],[29.1357,40.0982],[29.1357,40.0972],[29.1352,40.0948],[29.1359,40.0932],[29.1366,40.093],[29.1395,40.0941],[29.14,40.0942],[29.1405,40.094]]},
+ {id:'r6',v:'uludag',th:'hotels',n:'Hotels zone – Saklıgöl',d:'hard',km:8.38,up:603,dn:181,shape:'One way · ≈16.8 km out and back',sat:1,rec:'Wikiloc: 16.27 km, +756 m, rated difficult · CNN Türk: about 15 km',src:'https://www.cnnturk.com/yasam/sakligol-buyuluyor',
+  from:'Hotels zone (1,786 m)',to:'Saklıgöl glacial lake (2,216 m)',hi:'2,296 m',stay:'Nefes Dağyenice',
+  notes:['Rated difficult; the lake can still be frozen in May','Only for a fit subgroup with an experienced guide','Passes above the old tungsten mine'],
+  prof:[1784,1785,1784,1782,1776,1774,1777,1777,1776,1773,1777,1786,1811,1847,1887,1928,1961,1985,1999,2012,2029,2042,2055,2066,2076,2083,2093,2106,2122,2136,2147,2162,2178,2198,2214,2223,2226,2227,2238,2246,2250,2258,2272,2287,2291,2285,2270,2247,2217,2194,2175,2170,2174,2171,2149,2129,2132,2159,2190,2206],
+  w:[[29.1415,40.1099],[29.1413,40.1097],[29.1411,40.1102],[29.1416,40.1108],[29.1424,40.1106],[29.1424,40.111],[29.1433,40.1109],[29.1441,40.1114],[29.1448,40.1115],[29.147,40.111],[29.1495,40.1109],[29.151,40.1103],[29.1521,40.1101],[29.1526,40.1095],[29.1525,40.1089],[29.1527,40.1083],[29.1531,40.1084],[29.154,40.1089],[29.1563,40.1092],[29.1568,40.109],[29.1578,40.109],[29.1588,40.1084],[29.1621,40.1076],[29.1637,40.106],[29.1643,40.1046],[29.1648,40.1037],[29.1656,40.1031],[29.1674,40.1028],[29.1682,40.1024],[29.1698,40.1007],[29.1707,40.0994],[29.1712,40.0979],[29.1718,40.0971],[29.1723,40.0966],[29.1726,40.0966],[29.1731,40.0969],[29.1737,40.0965],[29.1736,40.096],[29.1737,40.0956],[29.1732,40.0952],[29.1732,40.0949],[29.1747,40.0945],[29.1776,40.0948],[29.1786,40.0946],[29.1795,40.0949],[29.1823,40.0946],[29.1836,40.0948],[29.1842,40.0945],[29.1853,40.0948],[29.1868,40.0957],[29.187,40.0956],[29.1867,40.0949],[29.1868,40.0946],[29.1874,40.094],[29.1879,40.0938],[29.1901,40.0937],[29.1906,40.0934],[29.1903,40.0926],[29.1884,40.0914],[29.1877,40.0912],[29.1873,40.0914],[29.1878,40.0909],[29.1899,40.0907],[29.1907,40.0905],[29.193,40.0888],[29.1939,40.089],[29.1946,40.0888],[29.1962,40.0893],[29.1981,40.0904],[29.2001,40.09],[29.2021,40.0892],[29.2036,40.0866],[29.2051,40.0863],[29.2053,40.0868],[29.2059,40.0869]]},
+ {id:'i1',v:'iznik',th:'golgate',trip:'loop',n:'İznik city walls loop',d:'easy',km:5.05,up:24,dn:22,shape:'Loop through the four gates',rec:'Gate positions from Google Maps; route on OpenStreetMap streets beside the walls',
+  from:'Göl Gate (lakeside)',to:'Göl Gate',hi:'105 m',stay:'İznik Seyir Kamp',
+  notes:['Flat walk round the Roman–Byzantine walls of Nicaea through İstanbul, Lefke and Yenişehir gates','Passes Hagia Sophia (where the Second Council of Nicaea met) and the lakeshore','Ties into a New Testament theme: Council of Nicaea, AD 325'],
+  prof:[83,83,83,83,83,83,83,83,85,88,90,90,91,92,92,93,94,94,94,94,95,96,97,99,100,101,102,103,104,104,104,103,103,102,102,102,101,99,99,98,98,97,97,96,95,95,94,94,94,93,93,93,94,96,96,95,93,91,88,85],
+  w:[[29.713,40.4299],[29.7133,40.4319],[29.714,40.433],[29.7151,40.4335],[29.7163,40.4348],[29.717,40.4345],[29.7191,40.4358],[29.7201,40.4362],[29.7205,40.4364],[29.7206,40.4368],[29.721,40.4366],[29.7213,40.4359],[29.7223,40.4352],[29.7224,40.4347],[29.7243,40.4336],[29.726,40.4321],[29.7264,40.4314],[29.7268,40.431],[29.7267,40.4297],[29.7271,40.4293],[29.7278,40.429],[29.7289,40.4288],[29.723,40.4293],[29.7227,40.426],[29.722,40.4261],[29.7217,40.4246],[29.7194,40.4244],[29.7193,40.4236],[29.7183,40.424],[29.7181,40.4244],[29.7181,40.4262],[29.7174,40.4264],[29.7177,40.4277],[29.7175,40.4289],[29.7146,40.4291],[29.7147,40.4298],[29.713,40.4299]]},
+ {id:'s2',v:'sapanca',th:'istanbuldere',n:'İstanbuldere – Soğucak Yaylası',d:'hard',km:14.94,up:894,dn:98,shape:'One way, steady climb',sat:1,rec:'Suggested as a walk by Enuygun; no published track',src:'https://www.enuygun.com/bilgi/sapanca-tatil-yerleri/',
+  from:'İstanbuldere village (≈326 m)',to:'Soğucak Yaylası (≈1,109 m)',hi:'1,136 m',stay:'Rüya Sapanca',
+  notes:['As a round trip this is about 30 km and 990 m of climb, too long for most of the group. Better: walk it one way and have a vehicle meet you at Soğucak (about 18 km by road back to Sapanca stays)','13.4 km of each leg is forest track','Shorter option: drive to Soğucak and walk the plateau and ridge','The dirt road to Soğucak is muddy after rain; Soğucak Şelalesi could not be located on the map, so ask locals'],
+  prof:[316,302,303,292,282,254,257,283,323,352,367,384,407,438,468,502,527,543,566,581,595,604,624,649,670,687,712,731,754,769,785,803,825,852,878,906,942,972,996,1011,1023,1044,1072,1108,1128,1131,1122,1113,1112,1117,1118,1113,1111,1111,1111,1105,1102,1107,1110,1112],
+  w:[[30.2306,40.6451],[30.2305,40.6467],[30.2316,40.6474],[30.232,40.6485],[30.2335,40.6505],[30.2347,40.6513],[30.2352,40.6519],[30.2363,40.652],[30.2371,40.6529],[30.2374,40.6547],[30.2382,40.6567],[30.2362,40.6557],[30.2356,40.656],[30.2362,40.6564],[30.2364,40.6568],[30.2366,40.6597],[30.237,40.6605],[30.2371,40.6625],[30.2367,40.6633],[30.2361,40.6635],[30.2356,40.6622],[30.2351,40.6629],[30.2346,40.6629],[30.234,40.6637],[30.2335,40.6631],[30.2339,40.6628],[30.2339,40.6621],[30.2335,40.6609],[30.233,40.6606],[30.2326,40.6608],[30.2318,40.6622],[30.2309,40.6623],[30.2304,40.6602],[30.2304,40.6591],[30.2285,40.6587],[30.2277,40.6578],[30.2255,40.6559],[30.2237,40.6557],[30.2207,40.6533],[30.22,40.6515],[30.2192,40.6501],[30.2163,40.6479],[30.2147,40.6475],[30.214,40.6457],[30.2172,40.646],[30.2173,40.6445],[30.2161,40.6441],[30.2154,40.643],[30.2133,40.6416],[30.2115,40.6412],[30.2083,40.6411],[30.2102,40.6406],[30.2087,40.6401],[30.2061,40.6402],[30.204,40.639],[30.2041,40.6382],[30.2065,40.6385],[30.2077,40.6371],[30.2076,40.6352],[30.2062,40.6361],[30.2044,40.6356],[30.206,40.6347],[30.2034,40.6343],[30.202,40.633],[30.2041,40.6333],[30.2048,40.631],[30.2046,40.63],[30.203,40.63],[30.2006,40.629],[30.199,40.6284],[30.1975,40.6266],[30.1956,40.6247],[30.193,40.6231],[30.1896,40.6212],[30.1888,40.6203],[30.1899,40.6194],[30.19,40.6177],[30.1887,40.6161],[30.1868,40.6155],[30.1866,40.6145],[30.1849,40.6128],[30.1811,40.6118],[30.1787,40.6127],[30.1773,40.6125],[30.1761,40.6117],[30.176,40.6107]]},
+ {id:'s3',v:'sapanca',th:'ilgate',rev:1,n:'İl Ormanı – Uzunkum – Sapanca lakeshore',d:'easy',km:5.35,up:21,dn:21,shape:'One way, flat',rec:'Route on OpenStreetMap; 2.6 km is a lakeside walking and cycle path',
+  from:'Sakarya İl Ormanı Tabiat Parkı, west gate',to:'Sapanca town shore',hi:'40 m',stay:'Sakarya İl Ormanı bungalows',
+  notes:['Flat lakeside walk, good for Thursday afternoon or an outdoor lesson by the water','TripAdvisor: Sapanca Lake 4.1 (495 reviews); İl Ormanı park 4.3 (39 reviews)'],
+  prof:[40,39,38,36,35,34,34,32,30,31,33,35,33,31,30,30,30,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,30,30,30,31,31,31,30,29,29,29,29,31,32,34,35,36,37,37,36,35,35,34,35,35,37,38,39,40],
+  w:[[30.2679,40.6937],[30.2686,40.694],[30.2704,40.6936],[30.2708,40.6939],[30.2777,40.6923],[30.2808,40.6926],[30.2824,40.6929],[30.2826,40.6933],[30.2841,40.6935],[30.2854,40.6944],[30.2877,40.6965],[30.2899,40.6976],[30.2921,40.698],[30.2991,40.6981],[30.3029,40.699],[30.3059,40.7002],[30.3072,40.7008],[30.3094,40.7024],[30.31,40.703],[30.3113,40.7023],[30.3114,40.702],[30.313,40.7024],[30.3132,40.7022]]}
+];
+
+const GRIDS={ul:[251,253,243,248,244,233,227,232,240,237,225,205,229,245,229,254,273,291,289,291,275,264,239,234,203,199,198,237,339,272,266,268,272,277,335,344,332,323,310,326,323,308,270,277,297,298,261,282,316,331,372,391,353,362,340,352,328,317,311,297,287,250,249,242,255,262,393,387,371,382,384,343,395,390,384,388,396,400,367,361,368,432,467,478,487,499,510,512,470,428,415,429,415,392,384,394,366,390,363,381,323,287,331,497,479,486,477,465,539,535,544,625,618,602,668,680,522,563,711,755,764,730,757,740,677,598,557,572,575,490,506,497,490,505,525,457,362,385,337,341,386,551,557,524,709,848,788,826,879,932,910,763,620,719,754,837,991,974,965,937,661,772,696,723,720,670,697,686,673,701,667,591,434,556,488,474,427,411,430,553,953,1002,997,970,1014,1087,1009,871,725,700,890,990,1045,1173,1068,896,722,928,811,819,767,943,927,859,872,776,643,589,546,680,551,498,478,485,489,438,982,1149,1226,1196,1171,1192,1096,992,865,759,975,1173,1224,1319,1144,881,1112,1140,1043,1022,992,1134,1180,1094,1001,945,904,681,715,778,664,578,550,586,601,548,957,1148,1271,1297,1311,1284,1199,1016,841,893,1053,1114,1258,1378,1179,1131,1182,1309,1115,1266,1165,1270,1290,1203,1150,1128,1039,940,946,886,926,772,625,656,689,619,963,1066,1261,1411,1427,1331,1172,1212,1199,1074,1255,1539,1577,1523,1359,1462,1538,1517,1398,1476,1382,1428,1614,1398,1353,1251,1097,1126,1216,1206,1100,886,825,824,828,735,1072,1079,1292,1368,1438,1469,1574,1583,1560,1382,1448,1582,1695,1689,1656,1711,1767,1788,1745,1657,1643,1587,1617,1579,1464,1403,1212,1197,1385,1362,1186,960,954,985,923,877,1138,1078,1257,1384,1541,1622,1635,1619,1616,1644,1601,1587,1597,1716,1649,1695,1753,1831,1795,1756,1869,1817,1832,1706,1583,1545,1466,1439,1503,1276,1179,1069,1041,1169,1103,962,1299,1392,1411,1504,1557,1633,1658,1637,1632,1675,1669,1618,1598,1702,1685,1693,1739,1806,1844,1795,1904,1972,1858,1804,1751,1666,1590,1650,1530,1339,1214,1158,1105,1378,1238,1092,1424,1487,1468,1532,1547,1620,1665,1685,1662,1677,1715,1655,1646,1718,1702,1694,1738,1780,1844,1907,1986,2061,2023,1922,1771,1719,1750,1829,1771,1597,1480,1393,1352,1515,1466,1371,1410,1472,1475,1549,1590,1618,1628,1711,1726,1763,1736,1668,1664,1738,1718,1695,1750,1831,1886,1981,2019,2011,1977,1882,1802,1880,1880,1964,1921,1782,1645,1433,1524,1567,1579,1360,1417,1477,1508,1551,1573,1590,1652,1744,1821,1772,1726,1740,1714,1742,1772,1710,1768,1865,1961,2049,2026,1959,1874,1855,1888,2009,1986,1972,1874,1760,1601,1721,1750,1787,1693,1551,1470,1489,1517,1603,1607,1682,1654,1767,1888,1822,1750,1825,1751,1763,1784,1779,1757,1854,1952,2049,2043,1988,1927,1874,1927,2085,2117,2029,1905,1742,1704,1892,1929,1906,1769,1527,1394,1445,1508,1621,1655,1712,1776,1858,1924,1885,1872,1880,1827,1783,1830,1815,1806,1901,1966,2044,2058,2049,2029,1931,2045,2156,2097,1933,1808,1821,1835,1940,2068,1976,1798,1680,1255,1445,1535,1596,1668,1768,1825,1915,1937,1975,1979,1895,1893,1805,1845,1829,1808,1858,1938,2034,2086,2103,2014,2021,2133,2162,2075,1947,1843,1967,1991,2022,2094,1967,1782,1818,1239,1310,1438,1569,1613,1684,1765,1779,1775,1847,1934,2021,1975,1854,1861,1862,1881,1904,1905,2005,2088,2108,2129,2175,2213,2024,2007,1973,2064,2102,2122,2147,2037,1870,1948,1946,1202,1249,1368,1478,1557,1666,1652,1621,1709,1806,1880,2020,1985,1965,1942,1961,1944,1995,1976,2054,2123,2232,2261,2297,2282,2184,2114,2033,2170,2254,2264,2253,2098,1961,2068,2164,1079,1179,1210,1345,1492,1512,1466,1550,1677,1806,1906,2053,2059,2079,2116,2050,2119,2134,2097,2212,2362,2308,2430,2375,2328,2173,2223,2150,2199,2280,2316,2168,2154,2166,2195,2078,1023,1127,1178,1220,1261,1442,1523,1551,1651,1823,1853,1847,1887,1921,1823,1790,2077,2094,2182,2245,2335,2438,2415,2422,2433,2300,2268,2298,2315,2331,2328,2282,2268,2211,2090,2039,1109,1150,1156,1174,1205,1203,1302,1288,1473,1621,1634,1631,1738,1622,1581,1692,1856,1882,1998,2089,2004,2231,2375,2391,2410,2433,2425,2444,2462,2494,2392,2278,2231,2165,2166,2242,973,1067,1084,1159,1144,1080,1099,1199,1298,1315,1346,1514,1551,1503,1366,1582,1615,1783,1925,1851,1870,2030,2173,2305,2179,2359,2291,2276,2306,2452,2432,2336,2299,2225,2254,2234,995,1012,1003,985,936,952,1067,1175,1196,1148,1172,1235,1225,1269,1258,1425,1405,1642,1833,1675,1690,1920,2074,2011,1956,2120,1992,2054,2200,2342,2440,2520,2406,2389,2313,2244,893,914,905,900,853,971,1104,1095,1103,1050,1185,1135,1103,1147,1187,1253,1346,1487,1575,1532,1585,1742,1849,1768,1893,2003,1830,1939,2085,2262,2350,2340,2400,2440,2495,2380],iz:[83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,85,87,87,85,86,86,90,90,93,112,248,314,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,84,84,83,83,83,83,87,92,99,134,198,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,88,93,97,102,132,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,90,92,97,103,124,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,94,95,97,100,194,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,90,96,103,101,101,147,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,88,95,98,100,105,108,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,89,92,98,102,106,111,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,87,92,94,98,103,106,110,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,87,91,94,97,101,106,110,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,87,88,90,95,97,101,107,112,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,87,91,90,93,97,103,106,109,120,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,90,99,101,98,107,110,123,123,145,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,85,91,89,95,106,113,122,147,152,154,177,263,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,89,100,93,94,148,111,235,223,258,125,216,173,253,230,256,352,83,83,83,83,83,83,83,83,93,97,83,83,83,92,171,186,224,112,212,250,162,146,224,355,292,156,337,304,319,357,334,366,83,88,97,83,85,94,92,105,113,157,199,177,199,193,245,273,240,149,241,249,170,245,281,342,341,223,307,373,436,448,435,499,142,120,150,146,121,143,171,185,218,153,305,280,338,333,326,293,252,143,213,320,295,245,282,333,352,296,437,443,479,485,475,454,247,182,218,228,230,235,270,274,307,232,210,352,362,360,326,291,216,267,239,345,357,300,363,384,450,445,318,346,426,380,428,450,316,373,346,302,318,322,321,365,331,299,343,398,408,377,316,309,291,319,343,388,446,342,426,474,431,472,404,509,456,413,488,488],sp:[122,132,151,191,173,183,196,169,115,210,209,205,140,235,128,223,183,185,179,64,73,116,76,143,121,95,179,212,216,186,203,161,114,107,41,109,52,95,116,92,122,162,121,171,93,125,139,143,130,126,93,103,42,89,93,40,29,29,35,53,62,34,64,144,179,184,114,120,120,69,32,73,88,64,63,82,92,110,69,68,67,55,44,35,50,44,44,29,29,29,29,29,29,29,29,29,29,29,29,29,31,68,44,42,41,36,34,33,77,85,96,97,87,68,71,59,49,34,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,31,31,31,33,34,33,36,34,86,81,78,62,55,44,35,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,32,32,33,33,34,34,36,39,37,32,33,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,32,33,33,34,38,38,37,38,49,46,36,34,34,36,36,33,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,80,87,95,78,55,42,38,44,41,87,64,41,38,44,51,50,45,34,35,38,39,35,29,29,29,31,29,29,29,29,29,29,29,29,29,63,81,82,106,85,55,49,40,43,36,135,103,73,51,64,68,71,57,42,48,49,58,49,38,44,47,44,40,38,34,29,29,29,39,49,65,91,143,121,107,100,72,62,42,44,38,224,179,178,188,107,114,98,126,95,76,76,79,61,47,65,68,57,57,50,49,36,37,61,158,93,119,158,158,112,114,95,84,53,45,44,44,384,378,315,292,219,190,308,236,197,182,154,119,191,246,185,93,77,76,63,57,50,68,62,90,151,197,196,164,143,116,102,72,59,45,45,46,484,553,510,448,232,391,476,482,447,349,239,318,412,306,136,279,117,102,102,107,111,126,142,125,189,228,241,210,203,131,112,59,45,46,36,34,647,776,708,568,289,585,706,712,602,414,187,436,435,221,359,275,152,287,292,259,222,242,240,217,251,279,189,228,129,121,103,99,49,42,38,46,748,910,750,544,449,639,912,838,631,363,319,564,420,299,400,327,162,418,444,410,358,374,355,261,182,140,144,110,116,99,90,61,59,53,36,34,892,1000,815,654,641,858,969,773,512,344,499,613,317,473,529,357,279,481,560,510,517,480,446,295,172,401,314,210,225,217,137,137,55,49,39,34,1124,1101,872,653,796,1017,992,755,502,453,685,502,405,590,473,255,469,582,656,569,469,405,351,211,340,361,299,242,196,241,117,66,50,41,36,102,1252,1116,858,858,1033,1151,994,657,447,679,440,498,627,577,359,344,547,747,681,588,516,366,365,439,563,527,377,263,139,105,82,64,45,35,99,109,1275,1192,956,1145,1236,1101,905,738,641,642,699,714,764,489,413,427,664,739,710,630,501,419,623,734,617,494,384,308,151,66,46,50,52,84,123,140,1239,1066,1228,1317,1209,1038,783,797,898,647,856,920,686,538,475,457,740,865,746,661,464,544,774,627,488,558,494,393,289,50,189,207,174,238,364,351,1150,1093,1291,1292,1143,1148,1144,1056,1099,826,1065,967,879,766,518,640,776,874,743,635,421,572,783,703,752,682,663,474,156,48,383,452,487,445,355,483,1171,1301,1264,1223,1250,1199,1209,1181,1084,1080,1146,1147,1002,702,763,882,850,869,712,517,567,739,783,778,620,505,365,195,57,63,162,226,176,212,426,561,1293,1291,1284,1210,1224,1178,1174,1104,1133,1097,1104,1070,983,994,1057,964,972,847,598,536,687,855,749,586,462,321,195,65,106,254,232,311,381,419,240,464,1259,1252,1215,1188,1195,1189,1135,1110,1113,1115,1117,1145,1093,1224,1112,1072,967,759,635,619,754,874,620,491,400,445,331,103,55,152,416,389,565,498,254,380,1185,1198,1221,1206,1191,1204,1104,1089,1084,1113,1143,1157,1150,1144,1114,1025,818,692,743,721,834,739,737,744,808,774,554,162,57,315,339,613,733,653,294,478,1115,1134,1180,1176,1142,1152,1126,1111,1129,1078,1051,1049,998,1015,1042,917,686,839,858,894,1014,804,708,478,750,536,257,278,106,429,696,573,705,528,408,601,1133,1061,1114,1113,1047,1102,1025,1074,1025,985,901,885,883,797,767,741,816,896,1054,942,859,754,752,452,473,440,308,73,352,306,356,483,584,673,494,611]};
+const GKEY={uludag:"ul",iznik:"iz",sapanca:"sp"};
+ROUTES.forEach(r=>{if(r.rev){r.w=r.w.slice().reverse();r.prof=r.prof.slice().reverse();const u=r.up;r.up=r.dn;r.dn=u}
+  r.oneKm=r.km;if(r.trip==='loop'){r.shape='Loop · ends where it starts'}else{const u=r.up,d=r.dn;r.km=+(r.km*2).toFixed(2);r.up=u+d;r.dn=u+d;r.prof=[...r.prof,...r.prof.slice().reverse()];r.shape='Round trip · out and back'}});
+function access(r){const opt=VIEWS[r.v].opt;return STAYS.filter(s=>s.o===opt&&DRIVE[s.id]&&DRIVE[s.id][r.th]).map(s=>({s,d:DRIVE[s.id][r.th]})).sort((a,b)=>a.d[1]-b.d[1])}
+const SAMEPARK=(s,th)=>s==='ilormani'&&th==='ilgate';
+function accessLine(x,th){return SAMEPARK(x.s.id,th)?'<b>Same park as the bungalows.</b> The gate is up to 3.5 km from the park centre by the park road (≈8 min drive or ≈45 min walk); ask where the bungalows sit':`${x.d[0]} km by road, about ${x.d[1]} min drive each way`}
+const fmtTime=r=>{if(r.km==null)return '—';const hrs=r.km/4+(r.up||0)/600;const m=Math.round(hrs*4)/4;const H=Math.floor(m),M=Math.round((m-H)*60);return (H?H+' h ':'')+(M?M+' min':'')};
+let curView='uludag',curRoute=null,proj=null,baseVB=null,vbAnim=null;
+
+function catmull(pts,closed){
+  if(pts.length<3)return 'M'+pts.map(p=>p.join(',')).join('L');
+  const P=closed?[pts[pts.length-1],...pts,pts[0],pts[1]]:[pts[0],...pts,pts[pts.length-1]];
+  let d='M'+P[1][0].toFixed(1)+','+P[1][1].toFixed(1);
+  for(let i=1;i<P.length-2;i++){const [p0,p1,p2,p3]=[P[i-1],P[i],P[i+1],P[i+2]];
+    const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+=`C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`}
+  return closed?d+'Z':d;
+}
+let curPxkm=1;
+function applyZoom(vb){
+  const s=$('#tMap'),f=vb[2]/baseVB[2];
+  $$('#tMap .inv').forEach(g=>g.setAttribute('transform',`scale(${f})`));
+  const o=$('#ovl');if(!o)return;o.innerHTML='';
+  const want=130*f/curPxkm,steps=[0.5,1,2,5,10,20];let km=steps[0];steps.forEach(x=>{if(x<=want)km=x});
+  const len=km*curPxkm;const sb=el('g',{class:'scalebar',transform:`translate(${vb[0]+24*f},${vb[1]+vb[3]-24*f})`},o);
+  const ln=(x1,y1,x2,y2)=>el('line',{x1,y1,x2,y2,'vector-effect':'non-scaling-stroke'},sb);
+  ln(0,0,len,0);ln(0,-5*f,0,5*f);ln(len,-5*f,len,5*f);
+  const st=el('text',{transform:`translate(${len+8*f},${4*f}) scale(${f})`},sb);st.textContent=km+' km';
+  const na=el('g',{transform:`translate(${vb[0]+vb[2]-30*f},${vb[1]+vb[3]-50*f}) scale(${f})`},o);
+  el('path',{d:'M0,-16L7,6L0,1L-7,6Z',fill:'var(--ink)'},na);const nt=el('text',{x:0,y:22,'text-anchor':'middle','font-family':'var(--f-mono)','font-size':12,fill:'var(--ink)'},na);nt.textContent='N';
+}
+function setVB(vb,anim){
+  const s=$('#tMap');if(vbAnim)cancelAnimationFrame(vbAnim);
+  const from=s.getAttribute('viewBox').split(' ').map(Number);
+  if(!anim||reduce){s.setAttribute('viewBox',vb.join(' '));applyZoom(vb);return}
+  const t0=performance.now(),D=650;
+  const step=t=>{const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);const cur=from.map((f,i)=>f+(vb[i]-f)*e);s.setAttribute('viewBox',cur.join(' '));applyZoom(cur);if(k<1)vbAnim=requestAnimationFrame(step)};
+  vbAnim=requestAnimationFrame(step);
+}
+function drawIn(path,delay){if(reduce)return;const L=path.getTotalLength();path.style.strokeDasharray=L;path.style.strokeDashoffset=L;
+  const a=path.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:900,delay,easing:'cubic-bezier(.4,.1,.2,1)',fill:'backwards'});
+  a.onfinish=()=>{path.style.strokeDasharray='';path.style.strokeDashoffset=''}}
+
+function renderView(id){
+  curView=id;curRoute=null;const V=VIEWS[id];const s=$('#tMap');s.innerHTML='';
+  const [lo0,la0,lo1,la1]=V.b,k=Math.cos((la0+la1)/2*Math.PI/180),W=1000,sc=W/((lo1-lo0)*k),H=(la1-la0)*sc;
+  proj=(lon,lat)=>[(lon-lo0)*k*sc,(la1-lat)*sc];const pxkm=sc/111.2;
+  baseVB=[0,0,W,Math.round(H)];s.setAttribute('viewBox',baseVB.join(' '));
+  el('rect',{x:-500,y:-500,width:W+1000,height:H+1000,class:'land'},s);
+  // terrain from SRTM elevation grid
+  const tg=el('g',{},s);const gv=GRIDS[GKEY[id]];
+  if(gv&&gv.length===V.grid.nx*V.grid.ny&&window.d3){const {nx,ny}=V.grid;const mn=Math.min(...gv),mx=Math.max(...gv);
+    const th=d3.range(Math.ceil(mn/V.step)*V.step,mx,V.step);
+    const [g0,g1,g2,g3]=V.grid.b||V.b;const gx=x=>g0+(x-.5)/(nx-1)*(g2-g0),gy=y=>g3-(y-.5)/(ny-1)*(g3-g1);
+    if(V.grid.fade){const [fx0,fy0]=proj(g0,g3),[fx1,fy1]=proj(g2,g1);const defs=el('defs',{},s);const lg=el('linearGradient',{id:'gfade',gradientUnits:'userSpaceOnUse',x1:fx0,y1:0,x2:fx0+(fx1-fx0)*.18,y2:0},defs);
+      el('stop',{offset:0,'stop-color':'#fff','stop-opacity':0},lg);el('stop',{offset:1,'stop-color':'#fff','stop-opacity':1},lg);
+      const lg2=el('linearGradient',{id:'gfade2',gradientUnits:'userSpaceOnUse',x1:0,y1:fy0,x2:0,y2:fy0+(fy1-fy0)*.15},defs);el('stop',{offset:0,'stop-color':'#fff','stop-opacity':0},lg2);el('stop',{offset:1,'stop-color':'#fff','stop-opacity':1},lg2);
+      const m=el('mask',{id:'gmask',maskUnits:'userSpaceOnUse',x:-2000,y:-2000,width:6000,height:6000},defs);const mg=el('g',{},m);
+      el('rect',{x:fx0,y:fy0,width:fx1-fx0,height:fy1-fy0,fill:'url(#gfade)'},mg);
+      const m2=el('mask',{id:'gmask2',maskUnits:'userSpaceOnUse',x:-2000,y:-2000,width:6000,height:6000},defs);el('rect',{x:fx0,y:fy0,width:fx1-fx0,height:fy1-fy0,fill:'url(#gfade2)'},m2);
+      const inner=el('g',{mask:'url(#gmask2)'},tg);tg.setAttribute('mask','url(#gmask)');tg._t=inner}
+    d3.contours().size([nx,ny]).smooth(true).thresholds(th)(gv).forEach(c=>{const f=(c.value-mn)/((mx-mn)||1);
+      const d=c.coordinates.map(poly=>poly.map(ring=>'M'+ring.map(([x,y])=>proj(gx(x),gy(y)).map(v=>v.toFixed(1)).join(',')).join('L')+'Z').join('')).join('');
+      const tt=tg._t||tg;el('path',{d,class:'band','fill-opacity':(.03+f*.15).toFixed(3)},tt);
+      el('path',{d,class:'contour'+(c.value%(V.step*5)===0?' idx':'')},tt)});
+    }
+  V.lakes.forEach(l=>{el('path',{d:catmull(l.p.map(p=>proj(...p)),true),class:'lake'},s);const [x,y]=proj(...l.lab);const lg=el('g',{transform:`translate(${x},${y})`},s);const li=el('g',{class:'inv'},lg);const t=el('text',{x:0,y:0,'text-anchor':'middle',class:'lakename'},li);t.textContent=l.n});
+  if(V.park)el('path',{d:'M'+V.park.map(p=>proj(...p).join(',')).join('L')+'Z',class:'park'},s);
+  (V.walls||[]).forEach(w=>el('path',{d:'M'+w.map(p=>proj(...p).map(v=>v.toFixed(1)).join(',')).join('L'),class:'wall'},s));
+  if(V.cable){el('path',{d:'M'+V.cable.map(p=>proj(...p).join(',')).join('L'),class:'cable'},s)}
+  // drive routes from stays to trailheads
+  const ag=el('g',{id:'ag'},s);
+  Object.entries(ACCESS).forEach(([k,a])=>{const sid=k.split('>')[0],st=STAYS.find(x=>x.id===sid);if(!st||st.v!==id)return;
+    el('path',{d:'M'+a.w.map(p=>proj(...p).map(v=>v.toFixed(1)).join(',')).join('L'),class:'acc','data-k':k,stroke:`var(--${st.o})`},ag)});
+  el('g',{id:'accLab'},s);
+  // routes
+  const rg=el('g',{id:'rg'},s);
+  const vr=ROUTES.filter(r=>r.v===id);
+  vr.forEach((r,i)=>{const pts=r.w.map(p=>proj(...p));const closed=r.shape==='Loop';const d=catmull(closed?pts.slice(0,-1):pts,closed);
+    el('path',{d,class:'route-case','data-r':r.id},rg);
+    const p=el('path',{d,class:`route ${r.d}`,'data-r':r.id},rg);if(r.est)p.setAttribute('stroke-dasharray','10 6');
+    const hit=el('path',{d,class:'hit'},rg);hit.addEventListener('click',()=>selectRoute(r.id));
+    drawIn(p,250+i*160)});
+  // points
+  V.pts.forEach(pt=>{const [x,y]=proj(...pt.ll);const g0=el('g',{class:'pt'+(pt.peak?' peak':''),transform:`translate(${x},${y})`},s);const g=el('g',{class:'inv'},g0);
+    if(pt.peak)el('path',{d:'M0,-8L7,5L-7,5Z'},g);else if(pt.lake)el('circle',{cx:0,cy:0,r:4,fill:'var(--lake)',stroke:'var(--card)'},g);else if(pt.fall)el('path',{d:'M-4,-5L4,-5L0,5Z',fill:'var(--lake)',stroke:'var(--card)'},g);else el('circle',{cx:0,cy:0,r:pt.small?2.5:4},g);
+    const t=el('text',{x:pt.dx,y:pt.dy,'text-anchor':pt.an||'start',class:'maplabel'+(pt.small?' sm':'')},g);t.textContent=pt.n;if(pt.ta){const ts=el('tspan',{class:'tastar',dx:5},t);ts.textContent='★'+TA[pt.ta].r.toFixed(1)}
+    if(pt.e){const e=el('text',{x:pt.dx,y:pt.dy+14,'text-anchor':pt.an||'start',class:'maplabel elev'},g);e.textContent=pt.e}});
+  // stays
+  STAYS.filter(st=>st.v===id&&!st.off).forEach(st=>{const [x,y]=proj(...st.ll);const g0=el('g',{class:'stay '+st.o,tabindex:0,role:'button','aria-label':st.n,transform:`translate(${x},${y})`},s);const g=el('g',{class:'inv'},g0);
+    el('rect',{x:-12,y:-12,width:24,height:24,rx:5},g);const lt=el('text',{x:0,y:5.5,'text-anchor':'middle',class:'lt'},g);lt.textContent='⌂';
+    const t=el('text',{x:st.lab==='l'?-16:16,y:-10,'text-anchor':st.lab==='l'?'end':'start',class:'maplabel','font-weight':600},g);t.textContent=st.n;
+    g0.addEventListener('click',()=>showStay(st));g0.addEventListener('keydown',e=>{if(e.key==='Enter')showStay(st)})});
+  if(V.offmap){const [x,y]=proj(...V.offmap.at);const og=el('g',{transform:`translate(${x},${y})`,class:'offlink',tabindex:0,role:'button'},s);const oi=el('g',{class:'inv'},og);const t=el('text',{x:V.offmap.an==='end'?-10:10,y:22,'text-anchor':V.offmap.an,class:'offmap maplabel'},oi);t.textContent=V.offmap.text;
+    const st=STAYS.find(x=>x.v===id&&x.off);const go=()=>st?showStay(st):V.offmap.ta&&showTA(V.offmap.ta);og.addEventListener('click',go);og.addEventListener('keydown',e=>{if(e.key==='Enter')go()})}
+  el('g',{id:'ovl'},s);curPxkm=pxkm;applyZoom(baseVB);
+  // list
+  $('#rlist').innerHTML='';
+  vr.forEach(r=>{const b=h(`<button type="button" class="ritem" aria-pressed="false" data-rid="${r.id}"><span class="sw" style="background:var(--${r.d==='easy'?'forest':r.d==='mod'?'amber':'blaze'})"></span><span class="nm">${r.n}</span><span class="km">${r.km} km</span></button>`);
+    b.addEventListener('click',()=>selectRoute(r.id));$('#rlist').appendChild(b)});
+  showOverview();
+}
+const satURL=(lon,lat,z)=>`https://www.google.com/maps/@${lat.toFixed(5)},${lon.toFixed(5)},${z}z/data=!3m1!1e3`;
+const taLine=k=>{const t=TA[k];return `<a href="${t.u}" target="_blank" rel="noopener" class="ta"><b>${t.n}</b> <span class="mono">★${t.r.toFixed(1)}</span> <span class="note">(${t.c.toLocaleString('en')} reviews)</span></a>`};
+function showTA(k){$('#detail').innerHTML=`<div class="eyebrow">TripAdvisor</div><h3>${TA[k].n}</h3>${taLine(k)}`}
+function profileSVG(r){const pr=r.prof,W=320,H=96,P=26,mn=Math.min(...pr),mx=Math.max(...pr),rg=Math.max(mx-mn,40),lo=mn-rg*.1,hi=mx+rg*.1;
+  const X=i=>P+(W-P-6)*i/(pr.length-1),Y=v=>6+(H-24)*(1-(v-lo)/(hi-lo));
+  const line=pr.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('');
+  const area=line+`L${X(pr.length-1)},${H-18}L${X(0)},${H-18}Z`;
+  return `<svg class="prof" viewBox="0 0 ${W} ${H}" role="img" aria-label="Elevation profile from ${pr[0]} m to ${pr[pr.length-1]} m">
+   <path d="${area}" fill="var(--${r.d==='easy'?'forest':r.d==='mod'?'amber':'blaze'})" fill-opacity=".18"/>
+   <path d="${line}" fill="none" stroke="var(--${r.d==='easy'?'forest':r.d==='mod'?'amber':'blaze'})" stroke-width="2"/>
+   <line x1="${P}" x2="${W-6}" y1="${H-18}" y2="${H-18}" stroke="var(--rule)"/>
+   <text x="${P-4}" y="${Y(mx)+4}" text-anchor="end">${mx}</text><text x="${P-4}" y="${Y(mn)+4}" text-anchor="end">${mn}</text>
+   <text x="${P}" y="${H-4}">0</text><text x="${W-6}" y="${H-4}" text-anchor="end">${r.km} km</text></svg>`}
+function showOverview(){
+  const V=VIEWS[curView],vr=ROUTES.filter(r=>r.v===curView),stays=STAYS.filter(s=>s.v===curView);
+  const [a,b,c,d]=V.b;
+  $('#detail').innerHTML=`<div class="eyebrow">${V.tab} · <span style="color:var(--${V.opt})">Option ${V.opt}</span></div>
+   <h3>${vr.length} route${vr.length>1?'s':''}, ${stays.length} stay${stays.length>1?'s':''}</h3>
+   <p style="font-size:14px;color:var(--ink-2)">Tap a route for distance, climb and its elevation profile. Tap ⌂ for an establishment.</p>
+   <ul>${stays.map(s=>`<li><b style="color:var(--ink)">${s.n}</b> · ${s.hike}</li>`).join('')}</ul>
+   <div class="eyebrow" style="margin-top:4px">On TripAdvisor</div><div class="talist">${V.ta.map(taLine).join('')}</div>
+   <a class="satbtn" href="${satURL((a+c)/2,(b+d)/2,12)}" target="_blank" rel="noopener">View this area on satellite ↗</a>`;
+}
+function selectRoute(rid){
+  const r=ROUTES.find(x=>x.id===rid);curRoute=rid;
+  $('#rg').classList.add('dim');$$('#rg [data-r]').forEach(p=>p.classList.toggle('sel',p.dataset.r===rid));
+  $$('.ritem').forEach(b=>b.setAttribute('aria-pressed',b.dataset.rid===rid));
+  const sel=$(`#rg .route[data-r="${rid}"]`);$('#rg').appendChild($(`#rg .route-case[data-r="${rid}"]`));$('#rg').appendChild(sel);
+  [...$('#rg').querySelectorAll('.hit')].forEach(x=>$('#rg').appendChild(x));
+  drawIn(sel,0);
+  hlAccess(k=>k.endsWith('>'+r.th));
+  const pts=r.w.map(p=>proj(...p)),xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const ar=baseVB[3]/baseVB[2];let w=Math.max(x1-x0,180)*1.9,hh=w*ar;if((y1-y0)*1.9>hh){hh=(y1-y0)*1.9;w=hh/ar}
+  w=Math.min(w,baseVB[2]);hh=Math.min(hh,baseVB[3]);
+  let vx=(x0+x1)/2-w/2,vy=(y0+y1)/2-hh/2;vx=Math.max(0,Math.min(vx,baseVB[2]-w));vy=Math.max(0,Math.min(vy,baseVB[3]-hh));
+  setVB([vx,vy,w,hh],true);
+  const diffName={easy:'Easy',mod:'Moderate',hard:'Hard'}[r.d];
+  const mid=r.w[Math.floor(r.w.length/2)],z=r.km>8?14:r.km>4?15:16;
+  $('#detail').innerHTML=`<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="diff ${r.d}">${diffName}</span>
+    <span class="chip rec">${r.sat?'Checked on satellite':'Traced on OpenStreetMap'}</span><span class="chip">${r.shape}</span></div>
+   <h3>${r.n}</h3>
+   <div class="stats"><div class="stat"><div class="v mono">${r.km}</div><div class="k">km ${r.trip==='loop'?'loop':'round trip'}</div></div>
+     <div class="stat"><div class="v mono">+${r.up}<small> / −${r.dn}</small></div><div class="k">m up / down</div></div>
+     <div class="stat"><div class="v">${fmtTime(r)}</div><div class="k">walking time</div></div></div>
+   ${profileSVG(r)}
+   ${r.trip!=='loop'?`<p class="note">One way ${r.oneKm} km. The profile shows the walk out and back.</p>`:''}
+   <div class="access"><div class="eyebrow">Getting to the trailhead · ${TH[r.th]}</div>
+     ${access(r).map(x=>`<div class="arow ${SAMEPARK(x.s.id,r.th)?'at':''}"><span class="letter ${x.s.o} sm">${x.s.o}</span><span><b>${x.s.n}</b><br><span class="note">${accessLine(x,r.th)}</span></span></div>`).join('')}
+     ${r.v==='uludag'?'<p class="note">Or take the Bursa cable car from Teferrüç to Sarıalan or the Hotels zone.</p>':''}</div>
+   <dl class="kv"><dt>Start &amp; end</dt><dd>${r.from}</dd><dt>${r.trip==='loop'?'Via':'Turn back at'}</dt><dd>${r.to}</dd><dt>High point</dt><dd>${r.hi}</dd><dt>Nearest stay</dt><dd>${r.stay}</dd>
+     <dt>Other data</dt><dd>${r.src?`<a href="${r.src}" target="_blank" rel="noopener">${r.rec}</a>`:r.rec}</dd></dl>
+   <ul>${r.notes.map(n=>`<li>${n}</li>`).join('')}</ul>
+   <a class="satbtn" href="${satURL(mid[0],mid[1],z)}" target="_blank" rel="noopener">View this route on satellite ↗</a>`;
+}
+function hlAccess(fn){const keys=Object.keys(ACCESS).filter(fn);const on=new Set(keys);keys.forEach(k=>{if(ACCESS[k].share)on.add(ACCESS[k].share)});
+  $$('#ag .acc').forEach(p=>p.classList.toggle('on',on.has(p.dataset.k)));
+  const L=$('#accLab');if(!L)return;L.innerHTML='';L.parentNode.insertBefore(L,$('#ovl'));const SS={nefes:'Nefes',seyir:'Seyir Kamp',muhit:'Doğa Muhit',ilormani:'İl Ormanı',ruya:'Rüya',green:'Green Hill'};const byTh={};
+  keys.forEach(k=>{const [sid,th]=k.split('>');const a=ACCESS[k],end=a.w[a.w.length-1];const st=STAYS.find(x=>x.id===sid);
+    const SH={cobankaya:'Çobankaya',bakacak:'Bakacak',hotels:'Hotels zone',golgate:'İznik walls',istanbuldere:'İstanbuldere',ilgate:'Park gate'};
+    const key=th;byTh[key]=(byTh[key]||0)+1;const i=byTh[key]-1;
+    const [x,y]=proj(...end);const right=x>baseVB[2]*.55;const g0=el('g',{transform:`translate(${x},${y})`},L);const g=el('g',{class:'inv'},g0);
+    const txt=fn.byStay?`${SH[th]} · ${a.min} min · ${a.km} km`:`${SS[sid]} · ${a.min} min · ${a.km} km`;
+    const t=el('text',{x:right?-12:12,y:-14-i*22,'text-anchor':right?'end':'start',class:'accpill-t'},g);t.textContent=txt;
+    const bb=t.getBBox();g.insertBefore(el('rect',{x:bb.x-6,y:bb.y-3,width:bb.width+12,height:bb.height+6,rx:4,class:'accpill',stroke:`var(--${st.o})`}),t)});
+  const sx=$('#tMap');if(sx&&sx.getAttribute('viewBox'))applyZoom(sx.getAttribute('viewBox').split(' ').map(Number));}
+function showStay(st){
+  const f=k=>k.startsWith(st.id+'>');f.byStay=1;hlAccess(f);
+  $('#detail').innerHTML=`<div style="display:flex;gap:10px;align-items:center"><span class="letter ${st.o}">${st.o}</span><span class="eyebrow">Establishment</span></div>
+   <h3>${st.n}</h3><p class="note">${st.where}</p>
+   <dl class="kv"><dt>Stay</dt><dd>${st.types}</dd><dt>Meeting room</dt><dd>${{yes:'Listed',no:'Not listed',maybe:'Not listed; villa living room?'}[st.meet]}</dd>
+   <dt>Food</dt><dd>${st.food}</dd><dt>Hiking</dt><dd>${st.hike}</dd><dt>Contact</dt><dd class="contact">${st.contact}</dd></dl>
+   <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center"><a class="satbtn" href="${satURL(st.ll[0],st.ll[1],17)}" target="_blank" rel="noopener">Satellite view ↗</a><a href="#stays" style="font-size:13px">See all establishments ↓</a></div>`;
+}
+$('#resetView').addEventListener('click',()=>{hlAccess(()=>false);curRoute=null;$('#rg').classList.remove('dim');$$('#rg [data-r]').forEach(p=>p.classList.remove('sel'));$$('.ritem').forEach(b=>b.setAttribute('aria-pressed',false));setVB(baseVB,true);showOverview()});
+Object.entries(VIEWS).forEach(([id,V])=>{const b=h(`<button type="button" class="tab" role="tab" aria-selected="${id===curView}"><b>${V.tab}</b><small>${V.sub}</small></button>`);
+  b.addEventListener('click',()=>{$$('#viewTabs .tab').forEach(x=>x.setAttribute('aria-selected',x===b));renderView(id)});$('#viewTabs').appendChild(b)});
+renderView('uludag');
+
+(function(){
+  $('#accessTbl').innerHTML=`<thead><tr><th>Route</th><th class="n">Round trip</th><th class="n">Climb</th><th class="n">Walking</th><th>Trailhead</th><th>Closest stay</th></tr></thead><tbody>${
+   ROUTES.map(r=>{const a=access(r)[0];return `<tr><td><span class="diff ${r.d}">${{easy:'Easy',mod:'Mod',hard:'Hard'}[r.d]}</span> ${r.n}<div class="note">${VIEWS[r.v].tab}</div></td><td class="n mono">${r.km} km</td><td class="n mono">+${r.up} m</td><td class="n mono">${fmtTime(r)}</td><td>${TH[r.th]}</td><td>${a?`${a.s.n}<div class="note">${SAMEPARK(a.s.id,r.th)?'Same park · gate ≤3.5 km away':a.d[0]+' km · ≈'+a.d[1]+' min drive'}</div>`:'—'}</td></tr>`}).join('')}</tbody>`;
+})();
+(function(){
+  const groups=[['A',['nefes','seyir','muhit'],['cobankaya','bakacak','hotels','golgate']],['B',['ilormani','ruya','green'],['ilgate','istanbuldere']]];
+  $('#matrix').innerHTML=groups.map(([o,ss,ts])=>`<div class="mx"><div class="eyebrow" style="color:var(--${o})">Option ${o} · ${o==='A'?'Bursa':'Sakarya'}</div><table><thead><tr><th></th>${ts.map(t=>`<th>${TH[t]}</th>`).join('')}</tr></thead><tbody>${
+   ss.map(s=>{const st=STAYS.find(x=>x.id===s);return `<tr><td class="rowh">${st.n}</td>${ts.map(t=>{const d=DRIVE[s][t];if(!d)return '<td>—</td>';const pct=Math.round(8+Math.min(d[1],110)/110*62);
+     return `<td style="background:color-mix(in srgb,var(--${o}) ${pct}%,var(--card));color:${pct>45?'var(--paper)':'var(--ink)'}"><div class="m">${d[1]}<small style="font-size:12px"> min</small></div><div class="k" style="color:inherit;opacity:.85">${d[0]} km${SAMEPARK(s,t)?' · same park':''}</div></td>`}).join('')}</tr>`}).join('')}</tbody></table></div>`).join('');
+})();
+/* ---------- stays grid ---------- */
+function renderStays(f){
+  $('#staysGrid').innerHTML='';
+  STAYS.filter(s=>f==='all'||s.o===f).forEach((s,i)=>{
+    const meet={yes:'<span class="tag yes">Meeting hall listed</span>',no:'<span class="tag no">No meeting room listed</span>',maybe:'<span class="tag">Villa room for lessons?</span>'}[s.meet];
+    const c=h(`<article class="stay-card" style="animation:rise .45s both;animation-delay:${i*60}ms">
+      <div class="top"><div><h3>${s.n}</h3><div class="where">${s.where}</div></div><span class="letter ${s.o}">${s.o}</span></div>
+      <div class="feat">${meet}<span class="tag">${s.food}</span></div>
+      <dl class="kv"><dt>Stay</dt><dd>${s.types}</dd><dt>Hiking</dt><dd>${s.hike}</dd><dt>Extras</dt><dd>${s.extra}</dd><dt>Unknown</dt><dd>${s.unk}</dd><dt>Contact</dt><dd class="contact">${s.contact}</dd></dl>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px"><a href="${s.url}" target="_blank" rel="noopener">Source page ↗</a><a href="${satURL(s.ll[0],s.ll[1],17)}" target="_blank" rel="noopener">Satellite view ↗</a>
+      <a href="#trails" data-goview="${s.v}">Show on trail map</a></div></article>`);
+    c.querySelector('[data-goview]').addEventListener('click',()=>{const idx=Object.keys(VIEWS).indexOf(s.v);$$('#viewTabs .tab')[idx].click();setTimeout(()=>showStay(s),50)});
+    $('#staysGrid').appendChild(c)});
+}
+segBind('sf',renderStays);renderStays('all');
+const QS=['Are Thursday to Sunday [dates] free for 25–30 people, and what is the group price per person per night?','Do you have separate units for men and women, and double rooms for three couples?','Is there a room or hall for 30 seated people with a projector, and an outdoor spot for lessons?','Can you serve three simple meals a day, or can we bring our own food and cook?','Can we hike from the site, can you suggest a guide, and are campfires allowed?','What are the payment, deposit and cancellation terms? Do you provide bedding or tents?'];
+$('#qlist').innerHTML=QS.map(q=>`<li>${q}</li>`).join('');
+$('#copyQ').addEventListener('click',()=>copyText(QS.map((q,i)=>`${i+1}. ${q}`).join('\n'),$('#qToast')));
+
+/* ---------- gear ---------- */
+const GEAR={
+ own:{left:{t:'Rent or bring',rows:[
+  ['Sleeping','2-person tents with groundsheet',17,15,'Men, sisters and couples in separate tents; 2 spare'],
+  ['Sleeping','Sleeping bags (comfort ≈5 °C)',30,25,'One each'],
+  ['Sleeping','Sleeping mats or air mattresses',30,25,''],
+  ['Shared','Group shelter / marquee ≈6×10 m with sides',1,1,'Lessons, meals, rain'],
+  ['Shared','Folding chairs',30,25,'Also for the fire circle'],
+  ['Shared','Folding tables (6 seats)',5,4,''],
+  ['Kitchen','Gas camp stoves',3,3,'Skip if the site cooks'],
+  ['Kitchen','Gas cartridges',12,10,''],
+  ['Kitchen','Cooking pots, kettles, utensils (sets)',2,2,''],
+  ['Kitchen','Coolers ≈45 L',3,2,''],
+  ['Kitchen','Water containers 20 L',6,5,''],
+  ['Hygiene','Portable toilets',2,2,'Skip if the site has toilets'],
+  ['Hygiene','Hand-wash stations',2,2,'']]},
+  right:{t:'Safety & program',rows:[
+  ['Light','Lanterns',6,5,''],['Light','Headlamps',30,25,'One each'],['Shared','Tarps 4×5 m',4,3,''],
+  ['Safety','Large first-aid kits',2,2,''],['Safety','Fire extinguishers',2,2,''],['Safety','Emergency blankets',6,5,''],
+  ['Safety','Two-way radios',4,4,'Hike leaders and base'],['Program','Speaker and microphone',1,1,''],
+  ['Program','Projector and screen',1,1,''],['Program','Extension cords / power strips',3,3,'']]}},
+ est:{left:{t:'The establishment provides',rows:[
+  ['Rooms','4-bed bungalows or glamping tents for men',5,4,'Leaders and brothers'],
+  ['Rooms','Unit for sisters (4 beds)',1,1,''],
+  ['Rooms','Double units for couples',3,3,''],
+  ['Space','Meeting room seating everyone',1,1,'With chairs, ideally a projector'],
+  ['Food','Dining space and three meals a day (days)',4,4,'Thu dinner to Sun lunch']]},
+  right:{t:'We bring',rows:[
+  ['Personal','Sleeping bags or bedding (if not provided)',30,25,'Towels too'],['Personal','Headlamps',30,25,''],
+  ['Lessons','Folding stools or sit pads',30,25,'For the 3 outdoor lessons'],['Personal','Day packs and water bottles',30,25,'Participants bring'],
+  ['Personal','Rain ponchos',30,25,''],['Safety','Large first-aid kits',2,2,''],['Safety','Emergency blankets',6,5,'For hikes'],
+  ['Program','Speaker and microphone',1,1,''],['Program','Projector and screen (if none)',1,1,''],['Program','Extension cords / power strips',3,3,''],
+  ['Lessons','Lesson materials and name tags',30,25,''],['Safety','Whistles and head-count lists',4,4,'One per hike leader'],['Site','Trash bag rolls',3,3,'Leave it clean']]}}};
+let gSc='est',gHc=30;
+function renderGear(flash){
+  const G=GEAR[gSc],i=gHc===30?2:3;
+  $('#gearCols').innerHTML=['left','right'].map(side=>`<div><h3>${G[side].t}</h3><div class="tbl"><table><thead><tr><th>Item</th><th class="n">Qty</th></tr></thead><tbody>${
+    G[side].rows.map(r=>`<tr><td><div class="cat">${r[0]}</div>${r[1]}${r[4]?`<div class="note">${r[4]}</div>`:''}</td><td class="q${flash&&r[2]!==r[3]?' flash':''}">${r[i]}</td></tr>`).join('')}</tbody></table></div></div>`).join('');
+  if(flash)setTimeout(()=>$$('td.q.flash').forEach(x=>x.classList.remove('flash')),700);
+}
+segBind('sc',v=>{gSc=v;renderGear()});segBind('ghc',v=>{gHc=+v;renderGear(true)});renderGear();
+$('#copyGear').addEventListener('click',()=>{const G=GEAR[gSc],i=gHc===30?2:3;
+  const rows=gSc==='own'?[...G.left.rows,...G.right.rows]:G.right.rows;
+  const txt=`YSA Kamp 2027 – equipment request (${gHc} people, Thu–Sun)\n`+rows.map(r=>`- ${r[1]}: ${r[i]}`).join('\n');copyText(txt,$('#gToast'))});
+
+/* ---------- schedule ---------- */
+const SCH={
+ Thu:[['12:00','15:00','Arrival and check-in','Varış ve yerleşme','log'],['15:30','16:30','Welcome, safety briefing, buddy pairs (indoor)','Karşılama, güvenlik bilgilendirmesi','spirit'],['16:30','17:30','Free time','Boş zaman','free'],['17:30','18:45','Icebreaker games and short walk','Tanışma oyunları ve kısa yürüyüş','out'],['19:00','20:00','Dinner','Akşam yemeği','meal'],['20:30','21:30','Opening devotional (indoor)','Açılış bağlılık toplantısı','spirit'],['21:30','23:00','Free time','Boş zaman','free']],
+ Fri:[['07:30','08:30','Breakfast','Kahvaltı','meal'],['08:40','09:10','Morning scripture study','Sabah Kutsal Yazı çalışması','spirit'],['09:30','10:30','Lesson 1 (indoor)','Ders 1','spirit'],['11:00','14:00','Hike 1 with trail lunch','Yürüyüş 1 ve patikada öğle yemeği','out'],['14:00','15:00','Rest','Dinlenme','free'],['15:00','16:00','Lesson 2 at a viewpoint (outdoor)','Ders 2, açık havada','spirit'],['16:30','18:45','Free time: optional workshops, lake or walk, rest','Boş zaman','free'],['19:00','20:00','Dinner','Akşam yemeği','meal'],['20:30','21:30','Devotional and talent night (indoor)','Bağlılık toplantısı ve yetenek gecesi','spirit'],['21:30','23:00','Free time','Boş zaman','free']],
+ Sat:[['07:30','08:30','Breakfast','Kahvaltı','meal'],['08:40','09:10','Morning scripture study','Sabah Kutsal Yazı çalışması','spirit'],['09:30','13:30','Main hike, Lesson 3 at summit, lake or waterfall (outdoor)','Ana yürüyüş ve Ders 3','out'],['13:30','15:00','Lunch and rest','Öğle yemeği ve dinlenme','meal'],['15:00','17:00','Service project: trail or nature clean-up','Hizmet aktivitesi: doğa temizliği','out'],['17:00','18:45','Free time','Boş zaman','free'],['19:00','20:00','Dinner','Akşam yemeği','meal'],['20:30','22:00','Campfire and testimonies','Kamp ateşi ve şehadetler','spirit'],['22:00','23:00','Free time','Boş zaman','free']],
+ Sun:[['07:30','08:30','Breakfast','Kahvaltı','meal'],['08:40','09:10','Morning scripture study','Sabah Kutsal Yazı çalışması','spirit'],['09:30','11:00','Memory wall, closing testimonies, goodbye (indoor)','Hatıra duvarı, kapanış, vedalaşma','spirit'],['11:00','12:00','Pack up and clean the site','Toplanma ve alanı temizleme','log'],['12:00','13:00','Lunch and free time for goodbyes','Öğle yemeği ve vedalaşma','free'],['13:00','13:00','Departure to home cities','Ayrılış','log']]};
+const DAYN={Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'};
+const mins=t=>{const [a,b]=t.split(':');return +a*60+ +b};
+(function(){
+  const box=$('#daybars');
+  Object.entries(SCH).forEach(([d,rows])=>{const tot={spirit:0,out:0,meal:0,free:0,log:0};rows.forEach(r=>tot[r[4]]+=mins(r[1])-mins(r[0]));
+    const span=Object.values(tot).reduce((a,b)=>a+b,0);const fr=(tot.free/60).toFixed(1).replace('.0','');
+    const row=h(`<div class="daybar"><span class="d">${d}</span><div class="bar">${['spirit','out','meal','free','log'].map(k=>`<span class="ty-${k}" data-w="${tot[k]/span*100}" style="width:0" title="${k}: ${(tot[k]/60).toFixed(1)} h"></span>`).join('')}</div><span class="ft">${fr} h free</span></div>`);
+    box.appendChild(row)});
+  const go=()=>$$('#daybars .bar span').forEach(s=>s.style.width=s.dataset.w+'%');
+  reduce?go():requestAnimationFrame(()=>requestAnimationFrame(go));
+})();
+function renderDay(d){
+  $('#tl').innerHTML=SCH[d].map((r,i)=>`<div class="tl-row ${r[4]==='free'?'free':''}" style="--i:${i}"><span class="t">${r[0]===r[1]?r[0]:r[0]+'–'+r[1]}</span><span class="sw ty-${r[4]}"></span><span>${r[2]}</span><span class="tr" lang="tr">${r[3]}</span></div>`).join('');
+}
+Object.keys(SCH).forEach((d,i)=>{const b=h(`<button type="button" class="tab" role="tab" aria-selected="${i===0}"><b>${DAYN[d]}</b></button>`);
+  b.addEventListener('click',()=>{$$('#dayTabs .tab').forEach(x=>x.setAttribute('aria-selected',x===b));renderDay(d)});$('#dayTabs').appendChild(b)});
+renderDay('Thu');
+
+/* ---------- themes & dates ---------- */
+const THEMES=[['Rejoice in Christ','Philippians 4:4','Matches the Church’s 2027 youth theme; joy at the summit'],['Come and See','John 1:39','An invitation to friends and less-active YSAs; every trail starts with “come”'],['Walk in Newness of Life','Romans 6:4','Path and journey imagery; the covenant path'],['A City on a Hill','Matthew 5:14–16','Campfire and night-sky devotional; being a light'],['Fellow Citizens with the Saints','Ephesians 2:19','Unity and belonging for a small group from seven cities']];
+THEMES.forEach(([t,r,w])=>{const b=h(`<button type="button" class="theme" aria-pressed="false"><span class="ref">${r}</span><b>${t}</b><span class="why">${w}</span></button>`);
+  b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';$$('.theme').forEach(x=>x.setAttribute('aria-pressed',false));b.setAttribute('aria-pressed',on);try{localStorage.setItem('kamp-theme',on?t:'')}catch(e){}});
+  $('#themes').appendChild(b)});
+try{const s=localStorage.getItem('kamp-theme');if(s)$$('.theme').forEach(x=>{if(x.querySelector('b').textContent===s)x.setAttribute('aria-pressed',true)})}catch(e){}
+const WINDOWS=[{s:'2027-06-03',e:'2027-06-06',l:'Thu 3 – Sun 6 June',n:'Recommended · after Bayram, before finals'},{s:'2027-05-27',e:'2027-05-30',l:'Thu 27 – Sun 30 May',n:'Right after the likely Kurban Bayramı'},{s:'2027-06-10',e:'2027-06-13',l:'Thu 10 – Sun 13 June',n:'Close to university finals'}];
+const AVOID=[['2027-05-02','2027-05-02','2 May','Worldwide Devotional for Young Adults'],['2027-05-16','2027-05-19','≈16–19 May','Kurban Bayramı (approximate) and 19 May holiday: crowded roads and sites'],['2027-06-14','2027-06-30','mid–late June','University finals; fire restrictions can start in dry weather']];
+let pickWin=0;
+function inR(d,s,e){return d>=s&&d<=e}
+function renderCal(){
+  const box=$('#cal');box.innerHTML='';
+  [[2027,4,'May 2027'],[2027,5,'June 2027']].forEach(([y,m,lab])=>{
+    const first=new Date(Date.UTC(y,m,1)),dim=new Date(Date.UTC(y,m+1,0)).getUTCDate(),off=(first.getUTCDay()+6)%7;
+    let html=`<div class="month"><h4>${lab}</h4><div class="days">${['M','T','W','T','F','S','S'].map(x=>`<span class="h">${x}</span>`).join('')}`;
+    for(let i=0;i<off;i++)html+='<span class="day empty"></span>';
+    for(let d=1;d<=dim;d++){const iso=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      let c='day';const wi=WINDOWS.findIndex(w=>inR(iso,w.s,w.e));if(wi>=0)c+=' cand'+(wi===pickWin?' pick':'');else if(AVOID.some(a=>inR(iso,a[0],a[1])))c+=' avoid';
+      html+=`<span class="${c}">${d}</span>`}
+    box.appendChild(h(html+'</div></div>'))});
+}
+WINDOWS.forEach((w,i)=>{const b=h(`<button type="button" class="win" aria-pressed="${i===0}"><span><b>${w.l}</b><small>${w.n}</small></span><span class="mono" style="font-size:12px;color:var(--ink-3)">3 nights</span></button>`);
+  b.addEventListener('click',()=>{pickWin=i;$$('.win').forEach(x=>x.setAttribute('aria-pressed',x===b));renderCal()});$('#windows').appendChild(b)});
+$('#avoid').innerHTML=AVOID.map(a=>`<div><span class="d">${a[2]}</span><span>${a[3]}</span></div>`).join('');
+renderCal();
+</script>
+
+</body>
+</html>
